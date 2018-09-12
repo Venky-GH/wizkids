@@ -1,0 +1,13 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+<script type="text/javascript">
+	{% if Error %}
+	$(document).ready(function() {
+		alert('{{ Error }}');
+	});
+	{% endif %}
+</script>
+
+{% endblock %}

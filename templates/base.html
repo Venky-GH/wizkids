@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load staticfiles %}
+    <title>WhizKids</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500|Gaegu:700" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    
+  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">WhizKids</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span> Menu
+      </button>
+
+      <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="{% url 'course' %}" class="nav-link">Course</a></li>
+          {% if user.is_authenticated %}
+          <li class="nav-item"><a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">Logout</a></li>
+          <form id="logout" method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <input type="hidden" />
+          </form>
+          {% else %}
+          <li class="nav-item"><a href="{% url 'login' %}" data-toggle="modal" data-target="#myM" class="nav-link">Sign-In</a></li>
+          <li class="nav-item"><a href="{% url 'signup' %}" data-toggle="modal" data-target="#myModal" class="nav-link">Sign-Up</a></li>
+          {% endif %}
+          <li class="nav-item"><a href="#foot" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- END nav -->
+  {% block content %}
+
+
+  
+
+
+{% endblock %}
+
+  <footer class="footer" id="foot">
+      <div class="container">
+        <div class="row mb-5">
+          
+  
+          
+  
+          <div class="col-md-6 col-lg-4">
+            <div class="block-23">
+              <h3 class="heading-section">Contact Info</h3>
+                <ul>
+                  <li><span class="icon icon-map-marker"></span><span class="text">Chalkstreet, HSR Layout,Banglore,Karnataka,India</span></li>
+                  <li><a href="#"><span class="icon icon-phone"></span><span class="text">+91-912345678</span></a></li>
+                  <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@Chalkstreet.com</span></a></li>
+                  <li><span class="icon icon-clock-o"></span><span class="text">Monday &mdash; Friday 8:00am - 5:00pm</span></li>
+                </ul>
+              </div>
+          </div>
+          
+          <div class="col-md-6 text-center">
+              <p>
+               <br>
+               <br>
+               <br>
+               <br>
+               <br>
+                 &copy;<script>document.write(new Date().getFullYear());</script> Chalkstreet All rights reserved
+               
+              </p>
+            </div>
+        </div>
+      </div>
+    </footer>
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#f2d026"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+<!-- modal started -->
+
+  <div class="modal fade" id="myM" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModal">Login</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="{% url 'login' %}">   <!--  -->
+            {% csrf_token %}
+              <div class="form-group">
+                <label >Username</label>
+                <input type="text" name="username" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter your username">
+              </div>
+              
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="pass" class="form-control" id="passwordLogin" placeholder="Password">
+              </div>
+              <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+           </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="SignUpModal">Sign Up</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="{% url 'signup' %}">       <!--  -->
+            {% csrf_token %}
+            
+              <div class="form-group">
+                <label >Username</label>
+                <input type="text" name="username" class="form-control" id="signupUser" aria-describedby="emailHelp" placeholder="Enter your desired username">
+              </div>
+              <div class="form-group">
+                <label >Parent Name</label>
+                <input type="text" name="parent" class="form-control" id="userParent" aria-describedby="emailHelp" placeholder="Enter Parent Name">
+              </div>
+              <div class="form-group">
+                <label >Child Name</label>
+                <input type="text" name="child" class="form-control" id="userChild" aria-describedby="emailHelp" placeholder="Enter Child Name">
+              </div>
+              <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" name="email" class="form-control" id="signUpEmail" aria-describedby="emailHelp" placeholder="Enter email">
+              </div>
+              
+              <div class="form-group">
+                <label for="pass1">Password</label>
+                <input type="password" name="pass1" class="form-control" id="Password1" placeholder="Password">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Confirm Password</label>
+                <input type="password" name="pass2" class="form-control" id="Password2" placeholder="Password">
+              </div>
+              <div class="form-group">
+                <label >Image</label>
+                <input type="file" name="pic" class="form-control " id="imageUser" aria-describedby="emailHelp" placeholder="Enter your desired pic">
+              </div>
+            
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </form>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+  <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+  
+  <script src="{% static 'js/aos.js' %}"></script>
+  <script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+    
+  </body>
+</html>
