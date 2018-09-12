@@ -73,52 +73,20 @@
         </div>
       </div>
       <div class="row">
+
+        {% for feed in feeds.all %}
         <div class="col-md-6 mb-5">
           <div class="block-47 d-flex">
             <div class="block-47-image">
               <img src="{% static 'images/person_3.jpg' %}" alt="Image placeholder" class="img-fluid">
             </div>
             <blockquote class="block-47-quote">
-              <p>&ldquo;A small river named Duden flows by their place and supplies it with the necessary regelialia.&rdquo;</p>
-              <cite class="block-47-quote-author">Carl Adams</cite>
+              <p>&ldquo;{{ feed.summary }}&rdquo;</p>
+              <cite class="block-47-quote-author">{{ d.get(feed.userid) }}</cite>
             </blockquote>
           </div>
         </div>
-        <div class="col-md-6 mb-5">
-          <div class="block-47 d-flex">
-            <div class="block-47-image">
-              <img src="{% static 'images/person_2.jpg' %}" alt="Image placeholder" class="img-fluid">
-            </div>
-            <blockquote class="block-47-quote">
-              <p>&ldquo;A small river named Duden flows by their place and supplies it with the necessary regelialia.&rdquo;</p>
-              <cite class="block-47-quote-author">&mdash; Nicole Watson</cite>
-            </blockquote>
-          </div>
-        </div>
-
-        <div class="col-md-6 mb-5">
-          <div class="block-47 d-flex">
-            <div class="block-47-image">
-              <img src="{% static 'images/person_1.jpg' %}" alt="Image placeholder" class="img-fluid">
-            </div>
-            <blockquote class="block-47-quote">
-              <p>&ldquo;A small river named Duden flows by their place and supplies it with the necessary regelialia.&rdquo;</p>
-              <cite class="block-47-quote-author">Vanessa Horton</cite>
-            </blockquote>
-          </div>
-        </div>
-        <div class="col-md-6 mb-5">
-          <div class="block-47 d-flex">
-            <div class="block-47-image">
-              <img src="{% static 'images/person_4.jpg' %}" alt="Image placeholder" class="img-fluid">
-            </div>
-            <blockquote class="block-47-quote">
-              <p>&ldquo;A small river named Duden flows by their place and supplies it with the necessary regelialia.&rdquo;</p>
-              <cite class="block-47-quote-author">&mdash; Adam Spratt</cite>
-            </blockquote>
-          </div>
-        </div>
-
+        {% endfor %}
       </div>
     </div>
   </div>
