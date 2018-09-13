@@ -46,9 +46,9 @@ def login(request):
 			auth.login(request, user)
 			return redirect('home')
 		else:
-			return render(request, 'login.html', {'Error' : 'Invalid Credentials'})
+			return render(request, 'home.html', {'Error' : 'Invalid Credentials'})
 	else:
-		return render(request, 'login.html')
+		return render(request, 'home.html')
 
 def logout(request):
 	if request.method == 'POST':

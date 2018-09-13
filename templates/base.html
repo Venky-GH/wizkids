@@ -208,6 +208,20 @@
   <script src="{% static 'js/aos.js' %}"></script>
   <script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
   <script src="{% static 'js/main.js' %}"></script>
+  
+  <script type="text/javascript">
+    
+    
+    $(document).ready(function() {
+      setTimeout(function() {
+ {% if Error %}
+      alert('{{ Error }}');
+    {% endif %}
+    },10);
+    });
+   
+  </script>
+
     
   </body>
 </html>
