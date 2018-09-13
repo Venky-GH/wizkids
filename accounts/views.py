@@ -7,6 +7,8 @@ from django.http import HttpResponse
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 
+# for password validations
+
 
 # Create your views here.
 def signup(request):
@@ -48,7 +50,7 @@ def login(request):
 		else:
 			return render(request, 'home.html', {'Error' : 'Invalid Credentials'})
 	else:
-		return render(request, 'home.html')
+		return render(request, 'login.html')
 
 def logout(request):
 	if request.method == 'POST':

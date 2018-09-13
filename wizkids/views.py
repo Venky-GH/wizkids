@@ -8,10 +8,14 @@ from accounts.models import account
 def home(request):
 	feeds = feedback.objects
 	d = {}
-	for feed in feeds.all():
-		o = account.objects.get(userid=feed.userid)
-		#d[o.username] = feed.summary
-		d[o.username] = {}
-		d[o.username][feed.summary] = o.image
+	i=0
+	for feed in reversed(feeds.all()):
+		if i<6:
+			o = account.objects.get(userid=feed.userid)
+			#d[o.username] = feed.summary
+			d[o.username] = {}
+			d[o.username][feed.summary] = o.image
+			i+=1
+
 	print(d)
 	return render(request, 'home.html', {'d' : d})
