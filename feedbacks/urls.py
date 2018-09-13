@@ -5,5 +5,5 @@ from django.conf.urls import url
 urlpatterns = [
 	path('', views.course, name='course'),
 	url(r'^GET', views.feed, name='feed'),
-	path('abc',views.subs,name='subs')
+	path('abc/',views.subs,name='subs')
 ] 

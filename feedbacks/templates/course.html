@@ -13,10 +13,31 @@
               <h2 class="heading">WhizKids</h2>
               <p class="lead">You can teach a student a lesson for a day, but if you can teach him to learn by creating curiosity, he will continue the learning process as long as he lives.</p>
               {% if user.is_authenticated %}
+              {% for key, value in d.items %}
+              {% if value == 1 %}
+              <button type="button" class="btn btn-primary btn-lg" style="background:transparent; border:2px solid #ffffff">
+                Subscribed
+              </button>
+              {% elif value == 0 %}
               <button type="button" class="btn btn-primary btn-lg" style="background:transparent; border:2px solid #ffffff" data-toggle="modal" data-target="#subs">
                 Subscribe
               </button>
-              &nbsp;&nbsp;
+              <button type="button" class="btn btn-primary btn-lg" style="background:transparent;  border:2px solid #ffffff">
+                  <a href="">Trial Started</a>
+                </button>
+              {% else %}
+              <button type="button" class="btn btn-primary btn-lg" style="background:transparent; border:2px solid #ffffff" data-toggle="modal" data-target="#subs">
+                Subscribe
+              </button>
+              <button type="button" class="btn btn-primary btn-lg" style="background:transparent;  border:2px solid #ffffff"  data-target="">
+                  <a href="{% url 'subs' %}">Try for free!</a>
+                </button>
+              {% endif %}
+              {% endfor %}
+              {% else %}
+              <button type="button" class="btn btn-primary btn-lg" style="background:transparent; border:2px solid #ffffff" data-toggle="modal" data-target="#subs">
+                Subscribe
+              </button>
               <button type="button" class="btn btn-primary btn-lg" style="background:transparent;  border:2px solid #ffffff"  data-target="">
                   <a href="{% url 'subs' %}">Try for free!</a>
                 </button>
@@ -71,9 +92,21 @@
         </div>
       </div>
       {% if user.is_authenticated %}
+      {% for key, value in chk.items %}
+      {% if value == 1 %}
+      <button type="button" class="btn btn-primary">
+        FeedBack Given
+      </button>
+      {% elif value == 0 %}
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#comments">
         FeedBack
       </button>
+      {% else %}
+      <button type="button" class="btn btn-primary">
+        Subscibe now to give FeedBack
+      </button>
+      {% endif %}
+      {% endfor %}
       {% endif %}
     </div>
   </div>

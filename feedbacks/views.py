@@ -3,13 +3,29 @@ from django.http import HttpResponse
 from .models import feedback,subscribe
 from django.contrib.auth.models import User
 from django.contrib import auth
+from .models import tokens
 # Create your views here.
 
 def course(request):
-	d = subscribe.objects
-	for date in d.all():
-		print(date.date)
-	return render(request,'course.html')
+
+	p = subscribe.objects.all()
+	d = {}
+	chk = {}
+	d['res'] = -1
+	chk['res'] = -1
+	for q in p:
+		if q.userid == request.user.id:
+			if q.check:
+				d['res'] = 1
+			else:
+				d['res'] = 0
+	if subscribe.objects.filter(userid=request.user.id):
+		if feedback.objects.filter(userid=request.user.id):
+			chk['res'] = 1
+		else:
+			chk['res'] = 0
+
+	return render(request,'course.html', {'d' : d, 'chk' : chk})
 
 def feed(request):
 	v = request.GET['fb']
@@ -19,6 +35,7 @@ def feed(request):
 	return render(request, 'course.html', {'Response' : 'Feedback Submitted Successfully! :)'})
 
 def subs(request):
+
 	if request.method == 'POST':
 		#get the token from the user 
 		token = request.POST['tkn']
