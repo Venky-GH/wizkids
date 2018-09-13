@@ -142,7 +142,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="POST" action="{% url 'signup' %}">       <!--  -->
+          <form method="POST" action="{% url 'signup' %}" enctype="multipart/form-data">       <!--  -->
             {% csrf_token %}
             
               <div class="form-group">
@@ -172,7 +172,7 @@
               </div>
               <div class="form-group">
                 <label >Image</label>
-                <input type="file" name="pic" class="form-control " id="imageUser" aria-describedby="emailHelp" placeholder="Enter your desired pic">
+                <input type="file" name="myfile" class="form-control " id="imageUser" placeholder="Enter your desired pic">
               </div>
             
               <div class="modal-footer">

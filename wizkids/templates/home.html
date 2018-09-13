@@ -73,16 +73,18 @@
         </div>
       </div>
       <div class="row">
-
-        {% for feed in feeds.all %}
+        {% for key,value in d.items %}
         <div class="col-md-6 mb-5">
           <div class="block-47 d-flex">
             <div class="block-47-image">
-              <img src="{% static 'images/person_3.jpg' %}" alt="Image placeholder" class="img-fluid">
+              {% for k,v in value.items %}
+              <img src="{{ MEDIA_URL }}{{ v }}" alt="Image placeholder" class="img-fluid">
+              
             </div>
             <blockquote class="block-47-quote">
-              <p>&ldquo;{{ feed.summary }}&rdquo;</p>
-              <cite class="block-47-quote-author">{{ d.get(feed.userid) }}</cite>
+              <p>&ldquo;{{ k }}&rdquo;</p>
+              <cite class="block-47-quote-author">{{ key }}</cite>
+            {% endfor %}
             </blockquote>
           </div>
         </div>

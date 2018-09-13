@@ -8,4 +8,8 @@ class account(models.Model):
 	childname = models.CharField(max_length=100)
 	userid = models.IntegerField()
 	email = models.CharField(max_length=100)
-	image = models.ImageField(upload_to='images/', default='images/Screenshot_9.png')
+	image = models.ImageField(upload_to='images/')
+
+
+	def __str__(self):
+		return self.username
