@@ -25,7 +25,7 @@ def signup(request):
 				auth.login(request, user)
 				return redirect('home')	
 		else:
-			return render(request, 'login.html', {'Error' : 'Passwords Do not match'})
+			return render(request, 'home.html', {'Error' : 'Passwords Do not match'})
 	else:
 		return render(request, 'login.html')
 
