@@ -25,12 +25,13 @@ SECRET_KEY = '35**x9n7faho8yc)!xs#yusudnpobg)xruyvyttesr#t@h)4h#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ec2-34-207-251-38.compute-1.amazonaws.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'creator.apps.CreatorConfig',
     'feedbacks.apps.FeedbacksConfig',
     'accounts.apps.AccountsConfig',
     'django.contrib.admin',
