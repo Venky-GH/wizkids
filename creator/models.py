@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class course (models.Model):
-    ids = models.IntegerField()
+    ids = models.AutoField(primary_key=True)
     title = models.TextField(max_length=100)
     desc = models.TextField(max_length=200)
     def __str__(self):
@@ -11,7 +11,7 @@ class course (models.Model):
     # res = models.FileField(upload_to='media/')
 
 class topic (models.Model):
-    ids = models.IntegerField()
+    ids = models.AutoField(primary_key=True)
     cid = models.ForeignKey(course, on_delete=models.CASCADE)
     title = models.TextField(max_length=100)
     desc = models.TextField(max_length=200)
@@ -20,7 +20,7 @@ class topic (models.Model):
         return self.title +" | "+ self.cid.title
 
 class content (models.Model):
-    conid = models.IntegerField()
+    conid =models.AutoField(primary_key=True)
     tid = models.ForeignKey(topic, on_delete=models.CASCADE)
     code = models.CharField(max_length=1)
     data = models.TextField(max_length=300)

@@ -5,10 +5,10 @@ from django.http import HttpResponse
 from .models import course,topic,content
 
 def creator(request):
-    #displaying the course page!!!
+    # displaying the course page!!!
     c = course.objects
     print(c.all)
-
+    
     return render(request,'creator.html',{'keys':c})
 
 def topics(request):
