@@ -4,4 +4,6 @@ from django.conf.urls import url
 
 urlpatterns = [
 	path('', views.creator, name='creator'),
+	path('topic',views.topics,name='top'),
+	path('res',views.resource,name='res')
 ] 

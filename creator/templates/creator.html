@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load staticfiles %}
+
+<div class="block-31" style="position: relative;">
+    <div class="owl-carousel loop-block-31 ">
+      <div class="block-30 item" style="background-image: url('{% static 'images/bg_1.jpg' %}');"
+        data-stellar-background-ratio="0.5">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-md-7">
+              <h2 class="heading">Every student can learn, just not on the same day, or the same way.</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+
+<div class="container">
+{% if chk == 2 %}
+
+  <h1>contentx</h1>
+
+
+{% else %}
+
+{% for k in keys.all %}
+
+<div class="card" style="width: 18rem;">
+    
+    <div class="card-body">
+      <h5 class="card-title">{{ k.title }}</h5>
+      <p class="card-text">{{ k.desc }}</p>
+      {% if chk == 1 %}
+      <form method="GET" action="{% url 'res' %}">
+        <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
+        <input class="btn btn-primary" type="submit" name="goto" value="Know More">
+      </form>
+      {% else %}
+      <form method="GET" action="{% url 'top' %}">
+        <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
+        <input class="btn btn-primary" type="submit" name="goto" value="Know More">
+      </form>
+      {% endif %}
+    </div>
+  </div>
+
+{% endfor %}
+
+
+{% endif %}
+
+
+
+</div>
+
+
+{% endblock %}
