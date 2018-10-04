@@ -16,14 +16,29 @@
           </div>
         </div>
       </div>
-  
+
     </div>
   </div>
+
+<br>
+
+{% if chk == 3 %}
+<div class="container">
+  <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add</button>
+</div>
+<br>
+{% endif %}
 
 <div class="container">
 {% if chk == 2 %}
 
-  <h1>contentx</h1>
+{% for k in keys.all %}
+
+<div class="alert alert-success">
+{{ k.data }}
+</div>
+
+{% endfor %}
 
 
 {% else %}
@@ -31,7 +46,7 @@
 {% for k in keys.all %}
 
 <div class="card" style="width: 18rem;">
-    
+
     <div class="card-body">
       <h5 class="card-title">{{ k.title }}</h5>
       <p class="card-text">{{ k.desc }}</p>
@@ -56,6 +71,42 @@
 
 
 
+</div>
+
+<div class="modal fade" id="addcourse" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="SignUpModal">Add Course</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{% url 'addc' %}" enctype="multipart/form-data">
+          <!--  -->
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label>Course Title</label>
+            <input type="text" name="ctitle" class="form-control" aria-describedby="emailHelp"
+              placeholder="Enter a suitable course title">
+          </div>
+          <div class="form-group">
+            <label>Course Description</label>
+            <textarea rows="10" cols="6" name="cdesc" class="form-control" aria-describedby="emailHelp"
+              placeholder="Enter Course Description"></textarea>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 
