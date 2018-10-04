@@ -17,7 +17,8 @@ class topic (models.Model):
     desc = models.TextField(max_length=200)
     oid = models.IntegerField()
     def __str__(self):
-        return self.title +" | "+ self.cid.title
+        s = self.title +" | "+ self.cid.title
+        return s
 
 class content (models.Model):
     conid =models.AutoField(primary_key=True)
@@ -26,4 +27,5 @@ class content (models.Model):
     data = models.TextField(max_length=300)
     oid = models.IntegerField()
     def __str__(self):
-        return self.code + " | " + self.tid.title +" | "+ self.tid.cid.title
+        s = self.code + " | " + self.tid.title +" | "+ self.tid.cid.title
+        return s
