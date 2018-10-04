@@ -9,7 +9,7 @@ def creator(request):
     c = course.objects
     print(c.all)
 
-    return render(request,'creator.html',{'keys':c})
+    return render(request,'creator.html',{'keys':c, 'chk':3})
 
 def topics(request):
     ids = request.GET['foreignKey']
@@ -21,3 +21,8 @@ def resource(request):
     ids = request.GET['foreignKey']
     con = content.objects.filter(tid=ids)
     return render(request,'creator.html',{'keys':con,'chk':2})
+
+def addcourse(request):
+    details = course(title=request.POST['ctitle'],desc=request.POST['cdesc'])
+    details.save()
+    return HttpResponse('Uploaded successfully')
