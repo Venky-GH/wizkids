@@ -23,9 +23,15 @@
 <br>
 
 {% if chk == 3 or chk == 1 %}
+{% if chk == 3 %}
 <div class="container">
-  <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add</button>
+  <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add Course</button>
 </div>
+{% elif chk == 1 %}
+<div class="container">
+  <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add Topic</button>
+</div>
+{% endif %}
 <br>
 {% endif %}
 
