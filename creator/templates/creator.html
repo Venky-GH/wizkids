@@ -43,6 +43,15 @@
 
 {% else %}
 
+{% if chk == 1 %}
+
+<div class="container">
+  <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add</button>
+</div>
+
+{% endif %}
+
+<br>
 {% for k in keys.all %}
 
 <div class="card" style="width: 18rem;">
@@ -61,6 +70,7 @@
         <input class="btn btn-primary" type="submit" name="goto" value="Know More">
       </form>
       {% endif %}
+    
     </div>
   </div>
 
@@ -86,7 +96,8 @@
         <form method="POST" action="{% url 'addc' %}" enctype="multipart/form-data">
           <!--  -->
           {% csrf_token %}
-
+          
+          
           <div class="form-group">
             <label>Course Title</label>
             <input type="text" name="ctitle" class="form-control" aria-describedby="emailHelp"
@@ -97,7 +108,16 @@
             <textarea rows="10" cols="6" name="cdesc" class="form-control" aria-describedby="emailHelp"
               placeholder="Enter Course Description"></textarea>
           </div>
+          {% if chk == 3 %}
+          <input hidden=true type="number" name="check" value=0>
 
+          {% elif chk == 1 %}
+          <input hidden=true type="number" name="check" value="{{ coursekey }}">
+          <div class="form-group">
+            <label>Topic orderId</label>
+            <input type="number" name="oid" class="form-control" >
+          </div>
+          {% endif %}
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Submit</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
