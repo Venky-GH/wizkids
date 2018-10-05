@@ -42,15 +42,6 @@
 
 
 {% else %}
-
-{% if chk == 1 %}
-
-<div class="container">
-  <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add</button>
-</div>
-
-{% endif %}
-
 <br>
 {% for k in keys.all %}
 
@@ -69,6 +60,7 @@
         <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
         <input class="btn btn-primary" type="submit" name="goto" value="Know More">
       </form>
+    
       {% endif %}
 
     </div>
@@ -123,7 +115,7 @@
           {% if chk == 1 %}
           <div class="form-group">
             <label>Order Number</label>
-            <input type="text" name="orderid" class="form-control" aria-describedby="emailHelp"
+            <input type="number" name="orderid" class="form-control" aria-describedby="emailHelp"
               placeholder="Enter desired order number">
           </div>
           <input hidden=true name="getcid" value="{{courseID}}" />
