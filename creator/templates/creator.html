@@ -67,6 +67,7 @@
 <br>
 {% for k in keys.all %}
 
+<<<<<<< HEAD
 <div class="container">
   <div class="row">
     <div class="col-md-6">
@@ -88,6 +89,25 @@
               </form>
               {% endif %}
             </div>
+=======
+<div class="card" style="width: 18rem;">
+
+    <div class="card-body">
+      <h5 class="card-title">{{ k.title }}</h5>
+      <p class="card-text">{{ k.desc }}</p>
+      {% if chk == 1 %}
+      <form method="GET" action="{% url 'res' %}">
+        <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
+        <input class="btn btn-primary" type="submit" name="goto" value="Know More">
+      </form>
+      {% else %}
+      <form method="GET" action="{% url 'top' %}">
+        <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
+        <input class="btn btn-primary" type="submit" name="goto" value="Know More">
+      </form>
+    
+      {% endif %}
+>>>>>>> 0e0bec1b56cd9f1366726f2e59e3404a39c63970
 
           </div>
         </div>
