@@ -24,12 +24,13 @@ def resource(request):
 
 def addcourse(request):
     temp = request.POST['pickachu']
-    naam = course.objects.filter(ids=request.POST['getcid'])
     if temp == '1':
+        naam = course.objects.filter(ids=request.POST['getcid'])
+        tops = topic.objects.filter(cid=request.POST['getcid'])
         details = topic(cid=naam[0],title=request.POST['ctitle'],desc=request.POST['cdesc'],oid=request.POST['orderid'])
         details.save()
-        return HttpResponse('Yeh topic hai re')
+        return render(request,'creator.html',{'keys':tops, 'chk':1, 'courseID':request.POST['getcid']})
     else:
         details = course(title=request.POST['ctitle'],desc=request.POST['cdesc'])
         details.save()
-        return HttpResponse('Uploaded successfully')
+        return creator(request)

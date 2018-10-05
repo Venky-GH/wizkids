@@ -23,9 +23,15 @@
 <br>
 
 {% if chk == 3 or chk == 1 %}
+{% if chk == 3 %}
 <div class="container">
-  <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add</button>
+  <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add Course</button>
 </div>
+{% elif chk == 1 %}
+<div class="container">
+  <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add Topic</button>
+</div>
+{% endif %}
 <br>
 {% endif %}
 
@@ -42,15 +48,6 @@
 
 
 {% else %}
-
-{% if chk == 1 %}
-
-<div class="container">
-  <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add</button>
-</div>
-
-{% endif %}
-
 <br>
 {% for k in keys.all %}
 
@@ -123,7 +120,7 @@
           {% if chk == 1 %}
           <div class="form-group">
             <label>Order Number</label>
-            <input type="text" name="orderid" class="form-control" aria-describedby="emailHelp"
+            <input type="number" name="orderid" class="form-control" aria-describedby="emailHelp"
               placeholder="Enter desired order number">
           </div>
           <input hidden=true name="getcid" value="{{courseID}}" />
