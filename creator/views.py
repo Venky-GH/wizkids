@@ -4,6 +4,9 @@ from django.http import HttpResponse
 # Create your views here.
 from .models import course,topic,content
 
+CID = None
+TOPICS = None
+
 def creator(request):
     # displaying the course page!!!
     c = course.objects
@@ -13,8 +16,11 @@ def creator(request):
 
 def topics(request):
     ids = request.GET['foreignKey']
-    tops = topic.objects.filter(cid=ids)
-
+    tops = topic.objects.filter(cid=ids).order_by('oid')
+    global TOPICS
+    TOPICS = tops
+    global CID
+    CID = ids
     return render(request,'creator.html',{'keys':tops,'chk':1,'coursekey':ids})
 
 def resource(request):
@@ -34,3 +40,8 @@ def addcourse(request):
         details = course(title=request.POST['ctitle'],desc=request.POST['cdesc'])
         details.save()
         return creator(request)
+
+def reorder(request):
+    global CID,TOPICS
+    tops = TOPICS
+    return render(request, 'creator.html', {'order':1, 'keys':tops, 'chk':1, 'courseID':CID})

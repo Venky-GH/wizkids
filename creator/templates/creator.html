@@ -29,7 +29,23 @@
 </div>
 {% elif chk == 1 %}
 <div class="container">
-  <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add Topic</button>
+  <div class="row">
+    <div class="col-md-4">
+      <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add Topic</button>
+    </div>
+    <div class="col-md-4">
+      <a href="{% url 'reord' %}">
+        <button class="btn btn-success">Re-Order</button>
+      </a>
+    </div>
+    {% if chk == 1 and order %}
+    <div class="col-md-4">
+      <a href="#">
+        <button class="btn btn-success">Make Changes</button>
+      </a>
+    </div>
+    {% endif %}
+  </div>
 </div>
 {% endif %}
 <br>
@@ -51,25 +67,41 @@
 <br>
 {% for k in keys.all %}
 
-<div class="card" style="width: 18rem;">
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card" style="width: 18rem;">
 
-    <div class="card-body">
-      <h5 class="card-title">{{ k.title }}</h5>
-      <p class="card-text">{{ k.desc }}</p>
-      {% if chk == 1 %}
-      <form method="GET" action="{% url 'res' %}">
-        <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
-        <input class="btn btn-primary" type="submit" name="goto" value="Know More">
-      </form>
-      {% else %}
-      <form method="GET" action="{% url 'top' %}">
-        <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
-        <input class="btn btn-primary" type="submit" name="goto" value="Know More">
-      </form>
-      {% endif %}
+          <div class="card-body">
+            <h5 class="card-title text-center">{{ k.title }}</h5>
+            <p class="card-text" style="text-align:justify;">{{ k.desc }}</p>
+            <div class="text-center">
+              {% if chk == 1 %}
+              <form method="GET" action="{% url 'res' %}">
+                <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
+                <input class="btn btn-primary" type="submit" name="goto" value="Know More">
+              </form>
+              {% else %}
+              <form method="GET" action="{% url 'top' %}">
+                <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
+                <input class="btn btn-primary" type="submit" name="goto" value="Know More">
+              </form>
+              {% endif %}
+            </div>
 
+          </div>
+        </div>
     </div>
+    {% if chk == 1 and order %}
+      <div class="col-md-4">
+        <div class="form-group">
+          <input type="number" class="form-control" name="changeOrd" placeholder="Current Order Number : {{ k.oid }}" />
+        </div>
+      </div>
+    {% endif %}
   </div>
+</div>
+  <br>
 
 {% endfor %}
 
