@@ -15,7 +15,7 @@ def topics(request):
     ids = request.GET['foreignKey']
     tops = topic.objects.filter(cid=ids)
 
-    return render(request,'creator.html',{'keys':tops,'chk':1,'courseID':ids})
+    return render(request,'creator.html',{'keys':tops,'chk':1,'coursekey':ids})
 
 def resource(request):
     ids = request.GET['foreignKey']
