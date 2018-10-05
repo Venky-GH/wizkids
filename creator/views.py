@@ -15,7 +15,7 @@ def topics(request):
     ids = request.GET['foreignKey']
     tops = topic.objects.filter(cid=ids)
 
-    return render(request,'creator.html',{'keys':tops,'chk':1})
+    return render(request,'creator.html',{'keys':tops,'chk':1,'courseID':ids})
 
 def resource(request):
     ids = request.GET['foreignKey']
@@ -23,6 +23,13 @@ def resource(request):
     return render(request,'creator.html',{'keys':con,'chk':2})
 
 def addcourse(request):
-    details = course(title=request.POST['ctitle'],desc=request.POST['cdesc'])
-    details.save()
-    return HttpResponse('Uploaded successfully')
+    temp = request.POST['pickachu']
+    naam = course.objects.filter(ids=request.POST['getcid'])
+    if temp == '1':
+        details = topic(cid=naam[0],title=request.POST['ctitle'],desc=request.POST['cdesc'],oid=request.POST['orderid'])
+        details.save()
+        return HttpResponse('Yeh topic hai re')
+    else:
+        details = course(title=request.POST['ctitle'],desc=request.POST['cdesc'])
+        details.save()
+        return HttpResponse('Uploaded successfully')
