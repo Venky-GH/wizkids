@@ -43,6 +43,15 @@
 
 {% else %}
 
+{% if chk == 1 %}
+
+<div class="container">
+  <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add</button>
+</div>
+
+{% endif %}
+
+<br>
 {% for k in keys.all %}
 
 <div class="card" style="width: 18rem;">
@@ -61,6 +70,7 @@
         <input class="btn btn-primary" type="submit" name="goto" value="Know More">
       </form>
       {% endif %}
+
     </div>
   </div>
 
@@ -90,6 +100,7 @@
         <form method="POST" action="{% url 'addc' %}" enctype="multipart/form-data">
           <!--  -->
           {% csrf_token %}
+
 
           <div class="form-group">
             {% if chk == 3 %}
