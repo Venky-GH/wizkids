@@ -34,10 +34,10 @@
       <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add Topic</button>
     </div>
     <div class="col-md-4">
-      <a href="#"> <!-- {% url 'reord' %} -->
+      <form method="GET" action="{% url 'reord' %}">
         <button onclick="func()" class="btn btn-success">Re-Order</button>
-      </a>
-      <p id="setvalue"></p>
+        <input type="text" hidden=true name="setvalue" id="setvalue" value="initial value" />
+      </form>
     </div>
   </div>
 </div>
@@ -104,7 +104,7 @@
             {% endif %}
           </td>
         </tr>
-        
+
 
 {% endfor %}
 
@@ -303,9 +303,9 @@ function func()
   for(var i=0;i<d.length;i++)
   {
     console.log(d[i].innerHTML);
-    name += String(d[i].innerHTML);
+    name += String(d[i].innerHTML).trim();
   }
-  document.getElementById('setvalue').innerHTML = name;
+  document.getElementById('setvalue').value = name;
 }
 
 var fixHelperModified = function(e, tr) {
