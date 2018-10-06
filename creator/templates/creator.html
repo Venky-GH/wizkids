@@ -52,8 +52,18 @@
 {% endif %}
 
 <div class="container">
-{% if chk == 2 %}
-
+{% if chk == 2 %}  
+<!-- this is for the resources template -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <button class="btn btn-success" data-toggle="modal" data-target="#addresource2">Add text/Questions</button>
+    </div>
+    <div class="col-md-6">
+        <button class="btn btn-success" data-toggle="modal" data-target="#addresource">Add Video/Pictures</button>
+    </div>
+  </div>
+</div>         
 {% for k in keys.all %}
 
 <div class="alert alert-success">
@@ -168,6 +178,110 @@
     </div>
   </div>
 </div>
+
+
+
+<!-- modal for resources  -->
+<div class="modal fade" id="addresource" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      
+        <h5 class="modal-title" id="SignUpModal">Add Resources</h5>
+      
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{% url 'addR' %}" enctype="multipart/form-data">
+          <!--  -->
+          {% csrf_token %}
+
+
+          <div class="form-group dropdown show">
+            <label for=""> <strong>Select Resource type to add:</strong> </label>
+            <select  name="rSelected" class ="btn btn-secondary dropdown-toggle">
+              <option class="dropdown-item" value="P">Picture</option>
+              <option class="dropdown-item" value="V">Videos</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+              <label>Resources</label>
+              <input type="file" name="myfile" class="form-control " id="imageUser" placeholder="Enter">
+          </div>
+          <div class="form-group">
+            <label>Order Id</label>
+            <input type="number" name="orderid" id="">
+        </div>
+          <input hidden="true" name="resId" value=1 />
+          <input hidden='true' name="Fkey" value="{{ topicID }}" >
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+  </div>
+
+
+
+
+  <div class="modal fade" id="addresource2" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+          
+            <h5 class="modal-title" id="SignUpModal">Add Resources</h5>
+          
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="{% url 'addR' %}" enctype="multipart/form-data">
+              <!--  -->
+              {% csrf_token %}
+    
+    
+              <div class="form-group dropdown show">
+                <label for=""> <strong>Select Resource type to add:</strong> </label>
+                <select  name="rSelected" class ="btn btn-secondary dropdown-toggle">
+                  <option class="dropdown-item" value="Q">Questions</option>
+                  <option class="dropdown-item" value="T">Texts</option>
+                </select>
+              </div>
+    
+              <div class="form-group">
+                  <label>Resources</label>
+                  <input type="text" name="title" id="" placeholder="enter question/title">
+                  <textarea rows="10" cols="6" name="summary" class="form-control" aria-describedby="emailHelp"
+                  placeholder="Enter Answer/decriptions"></textarea>
+
+              </div>
+              <div class="form-group">
+                <label>Order Id</label>
+                <input type="number" name="orderid" id="">
+            </div>
+              <input hidden="true" name="resId" value=0 />
+              <input hidden='true' name="Fkey" value="{{ topicID }}" >
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </form>
+          </div>
+    
+        </div>
+      </div>
+      </div>
+
+
+<!-- ended modal for resources -->
 
 
 {% endblock %}
