@@ -17,7 +17,7 @@ class topic (models.Model):
     desc = models.TextField(max_length=200)
     oid = models.IntegerField()
     def __str__(self):
-        s = self.title +" | "+ self.cid.title
+        s = self.title +" | "+ self.cid.title + " | " + str(self.oid)
         return s
 
 class content (models.Model):

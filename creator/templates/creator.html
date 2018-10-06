@@ -37,7 +37,7 @@
       <a href="#"> <!-- {% url 'reord' %} -->
         <button onclick="func()" class="btn btn-success">Re-Order</button>
       </a>
-      <p id="setvalue"></p>
+      <input type="text" name="setvalue" id="setvalue" value="na">
     </div>
   </div>
 </div>
@@ -298,9 +298,10 @@ function func()
   for(var i=0;i<d.length;i++)
   {
     console.log(d[i].innerHTML);
-    name += String(d[i].innerHTML);
+    var x =  String(d[i].innerHTML).trim();
+    name = name + ","+ x
   }
-  document.getElementById('setvalue').innerHTML = name;
+  document.getElementById('setvalue').value = name;
 }
 
 var fixHelperModified = function(e, tr) {
