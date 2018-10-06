@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.db.models import Q
 # Create your views here.
 from .models import course,topic,content
 
@@ -47,6 +48,34 @@ def addcourse(request):
         details.save()
         return creator(request)
 
+def reorder(request):
+    global CID,TOPICS
+    tops = TOPICS
+    s = request.GET['setvalue']
+    naam = course.objects.filter(ids=CID)
+    recurr(0,s,naam[0])
+    print(s)
+    # for i in range(0,len(s)):
+    #     obj = topic.objects.filter(Q(oid=int(s[i])) & Q(cid=naam[0]))
+    #     if len(obj) == 1:
+    #         obj[0].oid = i+1
+    #         obj[0].save()
+    #     else:
+    #         obj[1].oid = i+1
+    #         obj[1].save()
+    #     print(s[i],i+1)
+    return render(request, 'creator.html', {'keys':tops, 'chk':1, 'courseID':CID})
+
+def recurr(i,s,naam):
+    if(i == len(s)):
+        return
+    obj = topic.objects.get(Q(oid=int(s[i])) & Q(cid=naam))
+    obj.oid = i + 1
+    i = i + 1
+    print(s[i-1], i)
+    recurr(i,s,naam)
+    obj.save()
+
 
 def addRes(request):
     temp = request.POST['resId']
@@ -72,9 +101,3 @@ def addRes(request):
     details.save()  
     oid = int(request.POST['orderid'])+1
     return render(request,'creator.html',{'keys':cons,'chk':2,'topicID':request.POST['Fkey'],'topOrdLen':oid}) 
-
-    
-def reorder(request):
-    global CID,TOPICS
-    tops = TOPICS
-    return render(request, 'creator.html', {'order':1, 'keys':tops, 'chk':1, 'courseID':CID})

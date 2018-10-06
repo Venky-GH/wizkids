@@ -34,10 +34,10 @@
       <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add Topic</button>
     </div>
     <div class="col-md-4">
-      <a href="#"> <!-- {% url 'reord' %} -->
+      <form method="GET" action="{% url 'reord' %}">
         <button onclick="func()" class="btn btn-success">Re-Order</button>
-      </a>
-      <input type="text" name="setvalue" id="setvalue" value="na">
+        <input type="text" hidden=true name="setvalue" id="setvalue" value="initial value" />
+      </form>
     </div>
   </div>
 </div>
@@ -104,7 +104,7 @@
             {% endif %}
           </td>
         </tr>
-        
+
 
 {% endfor %}
 
@@ -298,8 +298,7 @@ function func()
   for(var i=0;i<d.length;i++)
   {
     console.log(d[i].innerHTML);
-    var x =  String(d[i].innerHTML).trim();
-    name = name + ","+ x
+    name += String(d[i].innerHTML).trim();
   }
   document.getElementById('setvalue').value = name;
 }
