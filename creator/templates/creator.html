@@ -33,18 +33,6 @@
     <div class="col-md-4">
       <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add Topic</button>
     </div>
-    <div class="col-md-4">
-      <a href="{% url 'reord' %}">
-        <button class="btn btn-success">Re-Order</button>
-      </a>
-    </div>
-    {% if chk == 1 and order %}
-    <div class="col-md-4">
-      <a href="#">
-        <button class="btn btn-success">Make Changes</button>
-      </a>
-    </div>
-    {% endif %}
   </div>
 </div>
 {% endif %}
@@ -75,14 +63,13 @@
 
 {% else %}
 <br>
-{% for k in keys.all %}
-
 <div class="container">
   <div class="row">
-    <div class="col-md-6">
-      <div class="card" style="width: 18rem;">
+    <div class="col-md-6 grid" id="sort">
+      <div class="card"  style="width: 18rem;">
+        {% for k in keys.all %}
 
-          <div class="card-body">
+          <div class="card-body" id="onemore" >
             <h5 class="card-title text-center">{{ k.title }}</h5>
             <p class="card-text" style="text-align:justify;">{{ k.desc }}</p>
             <div class="text-center">
@@ -91,6 +78,8 @@
                 <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
                 <input class="btn btn-primary" type="submit" name="goto" value="Know More">
               </form>
+              <td class="index">{{ k.oid }}</td>
+              <input type="number" class="commit" value="{{ k.oid }}">
               {% else %}
               <form method="GET" action="{% url 'top' %}">
                 <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
@@ -98,22 +87,13 @@
               </form>
               {% endif %}
             </div>
-
           </div>
+          {% endfor %}
         </div>
     </div>
-    {% if chk == 1 and order %}
-      <div class="col-md-4">
-        <div class="form-group">
-          <input type="number" class="form-control" name="changeOrd" placeholder="Current Order Number : {{ k.oid }}" />
-        </div>
-      </div>
-    {% endif %}
   </div>
 </div>
   <br>
-
-{% endfor %}
 
 
 {% endif %}
@@ -160,12 +140,9 @@
               placeholder="Enter Course Description"></textarea>
           </div>
           {% if chk == 1 %}
-          <div class="form-group">
-            <label>Order Number</label>
-            <input type="number" name="orderid" class="form-control" aria-describedby="emailHelp"
-              placeholder="Enter desired order number">
-          </div>
-          <input hidden=true name="getcid" value="{{courseID}}" />
+          
+            <input hidden="true" type="number" name="orderid" value="{{ ordLen }}" >
+            <input hidden=true name="getcid" value="{{ courseID }}" />
           {% endif %}
           <input hidden="true" name="pickachu" value="{{chk}}" />
           <div class="modal-footer">
@@ -211,10 +188,8 @@
               <label>Resources</label>
               <input type="file" name="myfile" class="form-control " id="imageUser" placeholder="Enter">
           </div>
-          <div class="form-group">
-            <label>Order Id</label>
-            <input type="number" name="orderid" id="">
-        </div>
+            <input hidden="true" type="number" name="orderid" value="{{ topOrdLen }}">
+ 
           <input hidden="true" name="resId" value=1 />
           <input hidden='true' name="Fkey" value="{{ topicID }}" >
           <div class="modal-footer">
@@ -283,5 +258,35 @@
 
 <!-- ended modal for resources -->
 
+
+<!-- script tag for order -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" >
+    
+    var fixHelperModified = function(e, div) {
+            // var $originals = div.children();
+            var $helper = div.clone();
+            // $helper.children().each(function(index) {
+            //     $(this).width($originals.eq(index).width())
+            // });
+            return $helper;
+        },
+            updateIndex = function(e, ui) {
+                $('td.index', ui.item.parent()).each(function (i) {
+                    $(this).html(i + 1);
+                });
+            };
+
+        $("#sort").sortable({
+            helper: fixHelperModified,
+            stop: updateIndex
+        });
+        $("#onemore").disableSelection()
+  
+</script>
+
+
+<!-- script tag for order -->
 
 {% endblock %}

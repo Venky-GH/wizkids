@@ -18,16 +18,20 @@ def creator(request):
 def topics(request):
     ids = request.GET['foreignKey']
     tops = topic.objects.filter(cid=ids).order_by('oid')
+    l = len(tops)+1
+    #todo : order id hidden and prefillled
     global TOPICS
     TOPICS = tops
     global CID
     CID = ids
-    return render(request,'creator.html',{'keys':tops,'chk':1,'coursekey':ids})
+    return render(request,'creator.html',{'keys':tops,'chk':1,'courseID':ids,'ordLen':l})
 
 def resource(request):
     ids = request.GET['foreignKey']
     con = content.objects.filter(tid=ids)
-    return render(request,'creator.html',{'keys':con,'chk':2,'topicID':ids})
+    l = len(con)+1
+    #todo : order id hidden and prefillled
+    return render(request,'creator.html',{'keys':con,'chk':2,'topicID':ids,'topOrdLen':l})
 
 def addcourse(request):
     temp = request.POST['pickachu']
@@ -36,7 +40,8 @@ def addcourse(request):
         tops = topic.objects.filter(cid=request.POST['getcid'])
         details = topic(cid=naam[0],title=request.POST['ctitle'],desc=request.POST['cdesc'],oid=request.POST['orderid'])
         details.save()
-        return render(request,'creator.html',{'keys':tops, 'chk':1, 'courseID':request.POST['getcid']})
+        oid = int(request.POST['orderid'])+1
+        return render(request,'creator.html',{'keys':tops, 'chk':1, 'courseID':request.POST['getcid'],'ordLen':oid})
     else:
         details = course(title=request.POST['ctitle'],desc=request.POST['cdesc'])
         details.save()
@@ -64,8 +69,11 @@ def addRes(request):
         data = {ques:ans}
         dataJson = json.dumps(data)
         details = content(tid=naam[0],code= request.POST['rSelected'],data=dataJson,oid=request.POST['orderid'])
-    details.save()
-    return render(request,'creator.html',{'keys':cons,'chk':2,'topicID':request.POST['Fkey']}) 
+    details.save()  
+    oid = int(request.POST['orderid'])+1
+    return render(request,'creator.html',{'keys':cons,'chk':2,'topicID':request.POST['Fkey'],'topOrdLen':oid}) 
+
+    
 def reorder(request):
     global CID,TOPICS
     tops = TOPICS
