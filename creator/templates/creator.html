@@ -33,6 +33,12 @@
     <div class="col-md-4">
       <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add Topic</button>
     </div>
+    <div class="col-md-4">
+      <a href="#"> <!-- {% url 'reord' %} -->
+        <button onclick="func()" class="btn btn-success">Re-Order</button>
+      </a>
+      <p id="setvalue"></p>
+    </div>
   </div>
 </div>
 {% endif %}
@@ -40,7 +46,7 @@
 {% endif %}
 
 <div class="container">
-{% if chk == 2 %}  
+{% if chk == 2 %}
 <!-- this is for the resources template -->
 <div class="container">
   <div class="row">
@@ -51,7 +57,7 @@
         <button class="btn btn-success" data-toggle="modal" data-target="#addresource">Add Video/Pictures</button>
     </div>
   </div>
-</div>         
+</div>
 {% for k in keys.all %}
 
 <div class="alert alert-success">
@@ -63,38 +69,47 @@
 
 {% else %}
 <br>
-<div class="container">
-  <div class="row">
-    <div class="col-md-6 grid" id="sort">
-      <div class="card"  style="width: 18rem;">
-        {% for k in keys.all %}
 
-          <div class="card-body" id="onemore" >
-            <h5 class="card-title text-center">{{ k.title }}</h5>
-            <p class="card-text" style="text-align:justify;">{{ k.desc }}</p>
-            <div class="text-center">
-              {% if chk == 1 %}
-              <form method="GET" action="{% url 'res' %}">
-                <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
-                <input class="btn btn-primary" type="submit" name="goto" value="Know More">
-              </form>
-              <td class="index">{{ k.oid }}</td>
-              <input type="number" class="commit" value="{{ k.oid }}">
-              {% else %}
-              <form method="GET" action="{% url 'top' %}">
-                <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
-                <input class="btn btn-primary" type="submit" name="goto" value="Know More">
-              </form>
-              {% endif %}
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-    </div>
-  </div>
-</div>
-  <br>
+<table id="sort" class="grid table table-striped table-dark table-hover" title="Kurt Vonnegut novels">
+    <thead>
+        <tr><th class="index text-center" scope="col">Updated Order ID</th><th>Current Order ID</th><th>Topic Title</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+{% for k in keys.all %}
 
+        <tr>
+          <td class="index" scope="row">
+            {{k.oid}}
+          </td>
+          <td  class="ord">
+            {{k.oid}}
+          </td>
+          <td>
+            {{k.title}}
+          </td>
+          <td>
+            <button class="btn btn-success" data-toggle="modal" data-target="#topicdesc">View</button>
+          </td>
+          <td>
+            {% if chk == 1 %}
+            <form method="GET" action="{% url 'res' %}">
+              <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
+              <input class="btn btn-primary" type="submit" name="goto" value="Know More">
+            </form>
+            {% else %}
+            <form method="GET" action="{% url 'top' %}">
+              <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
+              <input class="btn btn-primary" type="submit" name="goto" value="Know More">
+            </form>
+            {% endif %}
+          </td>
+        </tr>
+        
+
+{% endfor %}
+
+    </tbody>
+</table>
 
 {% endif %}
 
@@ -156,6 +171,20 @@
   </div>
 </div>
 
+<div class="modal fade" id="topicdesc" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        Topic Description
+      </div>
+      <div class="modal-body">
+        {{val}}
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 
 <!-- modal for resources  -->
@@ -163,9 +192,9 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-      
+
         <h5 class="modal-title" id="SignUpModal">Add Resources</h5>
-      
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -210,9 +239,9 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-          
+
             <h5 class="modal-title" id="SignUpModal">Add Resources</h5>
-          
+
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -221,8 +250,8 @@
             <form method="POST" action="{% url 'addR' %}" enctype="multipart/form-data">
               <!--  -->
               {% csrf_token %}
-    
-    
+
+
               <div class="form-group dropdown show">
                 <label for=""> <strong>Select Resource type to add:</strong> </label>
                 <select  name="rSelected" class ="btn btn-secondary dropdown-toggle">
@@ -230,7 +259,7 @@
                   <option class="dropdown-item" value="T">Texts</option>
                 </select>
               </div>
-    
+
               <div class="form-group">
                   <label>Resources</label>
                   <input type="text" name="title" id="" placeholder="enter question/title">
@@ -250,7 +279,7 @@
               </div>
             </form>
           </div>
-    
+
         </div>
       </div>
       </div>
@@ -259,34 +288,39 @@
 <!-- ended modal for resources -->
 
 
-<!-- script tag for order -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript" >
-    
-    var fixHelperModified = function(e, div) {
-            // var $originals = div.children();
-            var $helper = div.clone();
-            // $helper.children().each(function(index) {
-            //     $(this).width($originals.eq(index).width())
-            // });
-            return $helper;
-        },
-            updateIndex = function(e, ui) {
-                $('td.index', ui.item.parent()).each(function (i) {
-                    $(this).html(i + 1);
-                });
-            };
+<script>
+function func()
+{
+  var d = document.getElementsByClassName('ord');
+  var name = '';
+  for(var i=0;i<d.length;i++)
+  {
+    console.log(d[i].innerHTML);
+    name += String(d[i].innerHTML);
+  }
+  document.getElementById('setvalue').innerHTML = name;
+}
 
-        $("#sort").sortable({
-            helper: fixHelperModified,
-            stop: updateIndex
+var fixHelperModified = function(e, tr) {
+    var $originals = tr.children();
+    var $helper = tr.clone();
+    $helper.children().each(function(index) {
+        $(this).width($originals.eq(index).width())
+    });
+    return $helper;
+},
+    updateIndex = function(e, ui) {
+        $('td.index', ui.item.parent()).each(function (i) {
+            $(this).html(i + 1);
         });
-        $("#onemore").disableSelection()
-  
+    };
+
+$("#sort tbody").sortable({
+    helper: fixHelperModified,
+    stop: updateIndex
+}).disableSelection();
 </script>
-
-
-<!-- script tag for order -->
 
 {% endblock %}
