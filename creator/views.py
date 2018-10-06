@@ -65,7 +65,9 @@ def addRes(request):
         dataJson = json.dumps(data)
         details = content(tid=naam[0],code= request.POST['rSelected'],data=dataJson,oid=request.POST['orderid'])
     details.save()
-    return render(request,'creator.html',{'keys':cons,'chk':2,'topicID':request.POST['Fkey']}) 
+    return render(request,'creator.html',{'keys':cons,'chk':2,'topicID':request.POST['Fkey']})
+
+
 def reorder(request):
     global CID,TOPICS
     tops = TOPICS
