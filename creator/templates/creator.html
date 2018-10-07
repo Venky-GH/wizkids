@@ -37,7 +37,7 @@
 
       <form method="GET" action="{% url 'reord' %}">
         <button onclick="func()" class="btn btn-success">Re-Order</button>
-        <input type="text" hidden=true name="setvalue" id="setvalue" value="initial value" />
+        <input type="text" hidden=true id="setvalue" value="initial value" />
       </form>
     </div>
   </div>
@@ -126,7 +126,8 @@
             {{k.title}}
           </td>
           <td>
-            <button class="btn btn-success" data-toggle="modal" data-target="#topicdesc">View</button>
+            <button class="btn btn-success" onclick="capmodal({{ k.ids }})" data-toggle="modal" data-target="#topicdesc">View</button>
+            <input id="{{ k.ids }}" hidden=true value="{{ k.desc }}" />
           </td>
           <td>
             {% if chk == 1 %}
@@ -215,8 +216,7 @@
       <div class="modal-header">
         Topic Description
       </div>
-      <div class="modal-body">
-        {{val}}
+      <div class="modal-body" id="setcontent">
       </div>
 
     </div>
@@ -329,6 +329,13 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
+
+function capmodal(id)
+{
+  var v = document.getElementById(id).value;
+  document.getElementById('setcontent').innerHTML = v;
+}
+
 function func()
 {
   var d = document.getElementsByClassName('ord');
