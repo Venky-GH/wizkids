@@ -34,6 +34,7 @@
       <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add Topic</button>
     </div>
     <div class="col-md-4">
+
       <form method="GET" action="{% url 'reord' %}">
         <button onclick="func()" class="btn btn-success">Re-Order</button>
         <input type="text" hidden=true name="setvalue" id="setvalue" value="initial value" />
@@ -41,42 +42,77 @@
     </div>
   </div>
 </div>
+
 {% endif %}
 <br>
 {% endif %}
 
 <div class="container">
 {% if chk == 2 %}
+
 <!-- this is for the resources template -->
 <div class="container">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <button class="btn btn-success" data-toggle="modal" data-target="#addresource2">Add text/Questions</button>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <button class="btn btn-success" data-toggle="modal" data-target="#addresource">Add Video/Pictures</button>
+    </div>
+
+    <div class="col-md-4">
+        <form action="{% url 'reres' %}" method="get">
+        <button onclick="func()" class="btn btn-success">Re-Order</button>
+        <input type="text"  name="setvalue" id="setvalue" value="initial value" />
+      </form>
     </div>
   </div>
 </div>
+
+
+<table id="sort" class="grid table table-striped table-dark table-hover" title="Magic Table">
+  <thead>
+      <tr><th class="index text-center" scope="col">Updated Order ID</th><th>Current Order ID</th><th>Topic Title</th><th>Description</th></tr>
+  </thead>
+  <tbody>
 {% for k in keys.all %}
-
-<div class="alert alert-success">
-{{ k.data }}
-</div>
-
+      <tr>
+        <td class="index" scope="row">
+          {{k.oid}}
+        </td>
+        <td  class="ord">
+          {{k.oid}}
+        </td>
+        <td>
+          {{k.code}}
+        </td>
+        <td>
+          {{k.data}}
+        </td>
+      </tr>
 {% endfor %}
+
+  </tbody>
+</table>
+
 
 
 {% else %}
 <br>
-
-<table id="sort" class="grid table table-striped table-dark table-hover" title="Kurt Vonnegut novels">
+{% if chk == 1 %}
+<table id="sort" class="grid table table-striped table-dark table-hover" title="Magic Table">
     <thead>
         <tr><th class="index text-center" scope="col">Updated Order ID</th><th>Current Order ID</th><th>Topic Title</th><th>Description</th></tr>
     </thead>
+{% elif chk == 3 %}
+<table class="grid table table-striped table-dark table-hover" title="Ordinary Table">
+  <thead>
+      <tr><th>Topic Title</th><th>Description</th></tr>
+  </thead>
+  {% endif %}
     <tbody>
 {% for k in keys.all %}
-
+        {% if chk == 1 %}
         <tr>
           <td class="index" scope="row">
             {{k.oid}}
@@ -84,6 +120,8 @@
           <td  class="ord">
             {{k.oid}}
           </td>
+          {% endif %}
+          {% if chk == 1 or chk == 3 %}
           <td>
             {{k.title}}
           </td>
@@ -104,7 +142,7 @@
             {% endif %}
           </td>
         </tr>
-
+        {% endif %}
 
 {% endfor %}
 

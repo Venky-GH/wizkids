@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.db.models import Q
 # Create your views here.
 from .models import course,topic,content
-
+TID = None
 TOPICS = None
 CID = None
 import json
@@ -29,8 +29,10 @@ def topics(request):
 
 def resource(request):
     ids = request.GET['foreignKey']
-    con = content.objects.filter(tid=ids)
+    con = content.objects.filter(tid=ids).order_by('oid')
     l = len(con)+1
+    global TID
+    TID  = ids
     #todo : order id hidden and prefillled
     return render(request,'creator.html',{'keys':con,'chk':2,'topicID':ids,'topOrdLen':l})
 
@@ -55,21 +57,34 @@ def reorder(request):
     naam = course.objects.filter(ids=CID)
     recurr(0,s,naam[0])
     print(s)
-    # for i in range(0,len(s)):
-    #     obj = topic.objects.filter(Q(oid=int(s[i])) & Q(cid=naam[0]))
-    #     if len(obj) == 1:
-    #         obj[0].oid = i+1
-    #         obj[0].save()
-    #     else:
-    #         obj[1].oid = i+1
-    #         obj[1].save()
-    #     print(s[i],i+1)
     return render(request, 'creator.html', {'keys':tops, 'chk':1, 'courseID':CID})
+
+def reorderRes(request):
+    s = request.GET['setvalue']
+    global TID
+    naam = topic.objects.filter(ids=TID)
+    con = content.objects.filter(tid=TID).order_by('oid')
+    l = len(con)+1
+    recurrRes(0,s,naam[0])
+    print(s)
+    return render(request,'creator.html',{'keys':con,'chk':2,'topicID':TID,'topOrdLen':l})
+
+
+def recurrRes(i,s,naam):
+    if(i == len(s)):
+        return
+    obj = content.objects.get(Q(oid=int(s[i])) & Q(tid=naam))
+    obj.oid = i + 1
+    i = i + 1
+    print(s[i-1], i)
+    recurr(i,s,naam)
+    obj.save()
+
 
 def recurr(i,s,naam):
     if(i == len(s)):
         return
-    obj = topic.objects.get(Q(oid=int(s[i])) & Q(cid=naam))
+    obj = content.objects.get(Q(oid=int(s[i])) & Q(tid=naam))
     obj.oid = i + 1
     i = i + 1
     print(s[i-1], i)

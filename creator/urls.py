@@ -8,5 +8,6 @@ urlpatterns = [
 	path('res',views.resource,name='res'),
 	path('addR',views.addRes,name='addR'),
 	path('addc',views.addcourse,name='addc'),
-	path('reord',views.reorder,name='reord')
+	path('reord',views.reorder,name='reord'),
+	path('reordres',views.reorderRes,name='reres')
 ]

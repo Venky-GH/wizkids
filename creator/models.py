@@ -27,5 +27,5 @@ class content (models.Model):
     data = models.TextField(max_length=300)
     oid = models.IntegerField()
     def __str__(self):
-        s = self.code + " | " + self.tid.title +" | "+ self.tid.cid.title
+        s = self.code + " | " + self.tid.title +" | "+ self.tid.cid.title + " | " + str(self.oid)
         return s
