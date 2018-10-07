@@ -23,6 +23,7 @@ def topics(request):
     TOPICS = tops
     global CID
     CID = ids
+    count = tops.count()
     return render(request,'creator.html',{'keys':tops,'chk':1,'coursekey':ids})
 
 def resource(request):
