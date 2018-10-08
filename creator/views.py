@@ -84,7 +84,7 @@ def recurrRes(i,s,naam):
 def recurr(i,s,naam):
     if(i == len(s)):
         return
-    obj = content.objects.get(Q(oid=int(s[i])) & Q(tid=naam))
+    obj = topic.objects.get(Q(oid=int(s[i])) & Q(cid=naam))
     obj.oid = i + 1
     i = i + 1
     print(s[i-1], i)
