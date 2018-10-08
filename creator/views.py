@@ -97,22 +97,33 @@ def addRes(request):
     print(temp)
     naam = topic.objects.filter(ids=request.POST['Fkey'])
     cons = content.objects.filter(tid=request.POST['Fkey'])
+    code = request.POST['rSelected']
     if temp=='1':
         myfile = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
         uploaded_file_url = fs.url(filename)
         print(uploaded_file_url)
-        data ={"link":uploaded_file_url}
+        data = {}
+        data['code'] = code
+        data['url'] = uploaded_file_url
         dataJson = json.dumps(data)
         details = content(tid=naam[0],code= request.POST['rSelected'],data= dataJson,oid=request.POST['orderid'])
+        details.save()
     else:
         # all about text and questions
         ques = request.POST['title']
         ans = request.POST['summary']
-        data = {ques:ans}
+        data = {}
+        data['code'] = code
+        data['content'] = {}
+        data['content']['question'] = ques
+        data['content']['answer'] = ans
+        print(data)
         dataJson = json.dumps(data)
+        print(dataJson)
         details = content(tid=naam[0],code= request.POST['rSelected'],data=dataJson,oid=request.POST['orderid'])
-    details.save()  
+        details.save()
     oid = int(request.POST['orderid'])+1
-    return render(request,'creator.html',{'keys':cons,'chk':2,'topicID':request.POST['Fkey'],'topOrdLen':oid}) 
+    #return HttpResponse('Done!')
+    return render(request,'creator.html',{'keys':cons,'chk':2,'topicID':request.POST['Fkey'],'topOrdLen':oid})

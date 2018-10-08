@@ -63,16 +63,16 @@
     <div class="col-md-4">
         <form action="{% url 'reres' %}" method="get">
         <button onclick="func()" class="btn btn-success">Re-Order</button>
-        <input type="text"  name="setvalue" id="setvalue" value="initial value" />
+        <input type="text" hidden=true name="setvalue" id="setvalue" value="initial value" />
       </form>
     </div>
   </div>
 </div>
 
-
+<br>
 <table id="sort" class="grid table table-striped table-dark table-hover" title="Magic Table">
   <thead>
-      <tr><th class="index text-center" scope="col">Updated Order ID</th><th>Current Order ID</th><th>Topic Title</th><th>Description</th></tr>
+      <tr><th class="index text-center" scope="col">Updated Order ID</th><th>Current Order ID</th><th>Code</th><th>Content</th></tr>
   </thead>
   <tbody>
 {% for k in keys.all %}
@@ -86,8 +86,32 @@
         <td>
           {{k.code}}
         </td>
-        <td>
-          {{k.data}}
+        <td id="{{k.conid}}">
+
+          <!-- <video id="myvideo" src="">
+          </video>
+          <img id="mypic" src="" alt="" /> -->
+          <script type="text/javascript">
+            var init = {{ k.data|safe }};
+            var final = JSON.stringify(init);
+            var myjson = JSON.parse(final);
+            if(myjson.code == "Q" || myjson.code == "T")
+            {
+              document.getElementById('{{k.conid}}').innerHTML = `${myjson.content.question} <br> ${myjson.content.answer}`;
+            }
+            else if(myjson.code == "V" || myjson.code == "P")
+            {
+              if(myjson.code == "V")
+              {
+                document.getElementById('{{k.conid}}').innerHTML =`<video controls src="${myjson.url}" autoplay ></video>`
+              }
+              else if(myjson.code == "P")
+              {
+                document.getElementById('{{k.conid}}').innerHTML = `<img src="${myjson.url}" width="10%" height="20%" alt="some image" >`
+              }
+            }
+          </script>
+
         </td>
       </tr>
 {% endfor %}
@@ -194,7 +218,7 @@
               placeholder="Enter Course Description"></textarea>
           </div>
           {% if chk == 1 %}
-          
+
             <input hidden="true" type="number" name="orderid" value="{{ ordLen }}" >
             <input hidden=true name="getcid" value="{{ courseID }}" />
           {% endif %}
@@ -255,10 +279,10 @@
               <label>Resources</label>
               <input type="file" name="myfile" class="form-control " id="imageUser" placeholder="Enter">
           </div>
-            <input hidden="true" type="number" name="orderid" value="{{ topOrdLen }}">
- 
+            <input  type="number" name="orderid" value="{{ topOrdLen }}">
+
           <input hidden="true" name="resId" value=1 />
-          <input hidden='true' name="Fkey" value="{{ topicID }}" >
+          <input hidden="true" name="Fkey" value="{{ topicID }}" >
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Submit</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -305,12 +329,9 @@
                   placeholder="Enter Answer/decriptions"></textarea>
 
               </div>
-              <div class="form-group">
-                <label>Order Id</label>
-                <input type="number" name="orderid" id="">
-            </div>
+              <input type="number"  name="orderid" value="{{ topOrdLen }}">
               <input hidden="true" name="resId" value=0 />
-              <input hidden='true' name="Fkey" value="{{ topicID }}" >
+              <input hidden="true" name="Fkey" value="{{ topicID }}" >
               <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
