@@ -103,7 +103,7 @@
             {
               if(myjson.code == "V")
               {
-                document.getElementById('{{k.conid}}').innerHTML =`<video controls src="${myjson.url}" ></video>`
+                document.getElementById('{{k.conid}}').innerHTML =`<iframe src="${myjson.url}" ></iframe>`
               }
               else if(myjson.code == "P")
               {
@@ -285,7 +285,7 @@
               <label>Resources</label>
               <input type="file" name="myfile" class="form-control " id="imageUser" placeholder="Enter">
           </div>
-            <input  type="number" name="orderid" value="{{ topOrdLen }}">
+            <input  type="number" hidden="true" name="orderid" value="{{ topOrdLen }}">
 
           <input hidden="true" name="resId" value=1 />
           <input hidden="true" name="Fkey" value="{{ topicID }}" >
@@ -335,7 +335,7 @@
                   placeholder="Enter Answer/decriptions"></textarea>
 
               </div>
-              <input type="number"  name="orderid" value="{{ topOrdLen }}">
+              <input type="number" hidden="true"  name="orderid" value="{{ topOrdLen }}">
               <input hidden="true" name="resId" value=0 />
               <input hidden="true" name="Fkey" value="{{ topicID }}" >
               <div class="modal-footer">
