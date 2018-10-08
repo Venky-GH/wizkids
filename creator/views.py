@@ -59,6 +59,17 @@ def reorder(request):
     print(s)
     return render(request, 'creator.html', {'keys':tops, 'chk':1, 'courseID':CID})
 
+def recurr(i,s,naam):
+    if(i == len(s)):
+        return
+    obj = topic.objects.get(Q(oid=int(s[i])) & Q(cid=naam))
+    obj.oid = i + 1
+    i = i + 1
+    print(s[i-1], i)
+    recurr(i,s,naam)
+    obj.save()
+
+
 def reorderRes(request):
     s = request.GET['setvalue']
     global TID
