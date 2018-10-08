@@ -53,14 +53,18 @@
 <!-- this is for the resources template -->
 <div class="container">
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
       <button class="btn btn-success" data-toggle="modal" data-target="#addresource2">Add text/Questions</button>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <button class="btn btn-success" data-toggle="modal" data-target="#addresource">Add Video/Pictures</button>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
+        <button class="btn btn-success" data-toggle="modal" data-target="#addresource3">Add MCQ</button>
+    </div>
+
+    <div class="col-md-3">
         <form action="{% url 'reres' %}" method="get">
         <button onclick="func()" class="btn btn-success">Re-Order</button>
         <input type="text" hidden=true name="setvalue" id="setvalue" value="initial value" />
@@ -109,6 +113,9 @@
               {
                 document.getElementById('{{k.conid}}').innerHTML = `<img src="${myjson.url}" width="10%" height="20%" alt="some image" >`
               }
+            }
+            else if(myjson.code == "M"){
+              document.getElementById('{{k.conid}}').innerHTML = `${myjson.ques} `;
             }
           </script>
 
@@ -336,7 +343,7 @@
 
               </div>
               <input type="number" hidden="true"  name="orderid" value="{{ topOrdLen }}">
-              <input hidden="true" name="resId" value=0 />
+              <input  name="resId" value=0 />
               <input hidden="true" name="Fkey" value="{{ topicID }}" >
               <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -348,6 +355,60 @@
         </div>
       </div>
       </div>
+
+
+
+
+      <!-- modal for mcq resources -->
+
+      <div class="modal fade" id="addresource3" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+    
+                <h5 class="modal-title" id="SignUpModal">Add Resources</h5>
+    
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form method="POST" action="{% url 'addR' %}" enctype="multipart/form-data">
+                  <!--  -->
+                  {% csrf_token %}
+    
+                  <div class="form-group">
+                      <label>MCQ</label>
+                      <input type="text" name="title" id="" placeholder="enter question/title">
+                      <input type="text" name="A" placeholder="Enter option A">
+                      <input type="text" name="B" placeholder="Enter option B">
+                      <input type="text" name="C" placeholder="Enter option C">
+                      <input type="text" name="D" placeholder="Enter option D">
+                  </div>
+    
+                  <div class="form-group dropdown show">
+                    <label for=""> <strong>Select the correct option:</strong> </label>
+                    <select  name="rSelected" class ="btn btn-secondary dropdown-toggle">
+                      <option class="dropdown-item" value="A">A</option>
+                      <option class="dropdown-item" value="B">B</option>
+                      <option class="dropdown-item" value="A">C</option>
+                      <option class="dropdown-item" value="B">D</option>
+                    </select>
+                  </div>
+
+                  <input type="number" hidden="true"  name="orderid" value="{{ topOrdLen }}">
+                  <input  name="resId" value=2 />
+                  <input hidden="true" name="Fkey" value="{{ topicID }}" >
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </form>
+              </div>
+    
+            </div>
+          </div>
+          </div>
 
 
 <!-- ended modal for resources -->

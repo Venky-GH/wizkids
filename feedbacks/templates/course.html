@@ -57,46 +57,38 @@
 </div>
 
 
-
+<!-- loop through the course -->
 
 <div class="site-section">
   <div class="container">
 
+
     <div class="row">
+        {% for k in keys.all %}
       <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
         <div class="post-entry mb-5">
           <a href="blog-single.html" class="mb-3 img-wrap">
             <img src="{% static 'images/img_4.jpg' %}" alt="Image placeholder" class="img-fluid">
             <span class="date">July 26, 2018</span>
           </a>
-          <h3><a href="blog-single.html">Be A Volunteer Today</a></h3>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-          <p><a href="blog-single.html">Read More</a></p>
+          <h3><a href="">{{k.title}}</a></h3>
+          <p>{{ k.desc }}</p>
+          {% if xyz == 1 %}
+          <form method="GET" action="{% url 'topic' %}">
+            <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
+            <input class="btn btn-primary" type="submit" name="goto" value="Know More">
+          </form>
+          {% else %}
+          <form method="GET" action="{% url 'resource' %}">
+            <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
+            <input class="btn btn-primary" type="submit" name="goto" value="Know More">
+          </form>
+          {% endif %}
         </div>
       </div>
-      <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
-        <div class="post-entry mb-5">
-          <a href="blog-single.html" class="mb-3 img-wrap">
-            <img src="{% static 'images/img_4.jpg' %}" alt="Image placeholder" class="img-fluid">
-            <span class="date">July 26, 2018</span>
-          </a>
-          <h3><a href="blog-single.html">You May Save The Life of A Child</a></h3>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-          <p><a href="blog-single.html">Read More</a></p>
-        </div>
-      </div>
-      <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
-        <div class="post-entry mb-5">
-          <a href="blog-single.html" class="mb-3 img-wrap">
-            <img src="{% static 'images/img_4.jpg' %}" alt="Image placeholder" class="img-fluid">
-            <span class="date">July 26, 2018</span>
-          </a>
-          <h3><a href="blog-single.html">Children That Needs Care</a></h3>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-          <p><a href="blog-single.html">Read More</a></p>
-        </div>
-      </div>
+      {% endfor %}
     </div>
+
     {% if user.is_authenticated %}
     {% for key, value in chk.items %}
     {% if value == 1 %}

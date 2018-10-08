@@ -4,7 +4,11 @@ from .models import feedback,subscribe
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import tokens
+from creator.models import course as crs,topic as tp,content
 # Create your views here.
+
+D = None
+CHK = None
 
 def course(request):
 
@@ -25,7 +29,12 @@ def course(request):
 		else:
 			chk['res'] = 0
 
-	return render(request,'course.html', {'d' : d, 'chk' : chk})
+	c = crs.objects
+	global D
+	D = d
+	global CHK
+	CHK = chk
+	return render(request,'course.html', {'d' : d, 'chk' : chk,'keys':c,"xyz":1})
 
 def feed(request):
 	v = request.GET['fb']
@@ -55,3 +64,17 @@ def subs(request):
 		s = subscribe(userid=uid,check=0)
 		s.save()
 		return render(request,'course.html',{'subs':'trial Activated'})
+
+def topic(request):
+	ids = request.GET['foreignKey']
+	t = tp.objects.filter(cid=ids).order_by('oid')
+	global D
+	global CHK
+	return render(request,'course.html', {'d' : D, 'chk' :CHK,'keys':t,"xyz":2})
+
+def resource(request):
+	ids = request.GET['foreignKey']
+	con = content.objects.filter(tid=ids).order_by('oid')
+	return render(request,'resources.html')
+
+

@@ -121,7 +121,7 @@ def addRes(request):
         dataJson = json.dumps(data)
         details = content(tid=naam[0],code= request.POST['rSelected'],data= dataJson,oid=request.POST['orderid'])
         details.save()
-    else:
+    elif temp=='0':
         # all about text and questions
         ques = request.POST['title']
         ans = request.POST['summary']
@@ -134,6 +134,25 @@ def addRes(request):
         dataJson = json.dumps(data)
         print(dataJson)
         details = content(tid=naam[0],code= request.POST['rSelected'],data=dataJson,oid=request.POST['orderid'])
+        details.save()
+    else:
+        # all about MCQ's
+        ques = request.POST['title']
+        optA = request.POST['A']
+        optB = request.POST['B']
+        optC = request.POST['C']
+        optD = request.POST['D']
+        data1 = {}
+        data1['code'] = 'M'
+        data1['ques'] = ques
+        data1['A'] = optA
+        data1['B'] = optB
+        data1['C'] = optC
+        data1['D'] = optD
+        data1['ans'] = request.POST['rSelected']
+        print(data1)
+        dataJson = json.dumps(data1)
+        details = content(tid=naam[0],code='M',data= dataJson,oid= request.POST['orderid'])
         details.save()
     oid = int(request.POST['orderid'])+1
     #return HttpResponse('Done!')
