@@ -9,12 +9,16 @@ TOPICS = None
 CID = None
 import json
 from django.core.files.storage import FileSystemStorage
+
+
 def creator(request):
     # displaying the course page!!!
     c = course.objects
     print(c.all)
-
-    return render(request,'creator.html',{'keys':c, 'chk':3})
+    if request.user.id == 1:
+        return render(request,'creator.html',{'keys':c, 'chk':3})
+    else:
+        return redirect('accd')
 
 def topics(request):
     ids = request.GET['foreignKey']
@@ -38,15 +42,20 @@ def resource(request):
 
 def addcourse(request):
     temp = request.POST['pickachu']
+    myfile = request.FILES['thmb']
+    fs = FileSystemStorage()
+    filename = fs.save(myfile.name, myfile)
+    uploaded_file_url = fs.url(filename)
     if temp == '1':
         naam = course.objects.filter(ids=request.POST['getcid'])
         tops = topic.objects.filter(cid=request.POST['getcid'])
-        details = topic(cid=naam[0],title=request.POST['ctitle'],desc=request.POST['cdesc'],oid=request.POST['orderid'])
+
+        details = topic(cid=naam[0],title=request.POST['ctitle'],desc=request.POST['cdesc'],oid=request.POST['orderid'],image=uploaded_file_url)
         details.save()
         oid = int(request.POST['orderid'])+1
         return render(request,'creator.html',{'keys':tops, 'chk':1, 'courseID':request.POST['getcid'],'ordLen':oid})
     else:
-        details = course(title=request.POST['ctitle'],desc=request.POST['cdesc'])
+        details = course(title=request.POST['ctitle'],desc=request.POST['cdesc'],image=uploaded_file_url)
         details.save()
         return creator(request)
 

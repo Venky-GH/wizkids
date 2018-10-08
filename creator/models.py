@@ -5,6 +5,7 @@ class course (models.Model):
     ids = models.AutoField(primary_key=True)
     title = models.TextField(max_length=100)
     desc = models.TextField(max_length=200)
+    image = models.TextField(max_length=200,default='courseImage')
     def __str__(self):
         return self.title
     # code = models.CharField(max_length=2)
@@ -16,6 +17,7 @@ class topic (models.Model):
     title = models.TextField(max_length=100)
     desc = models.TextField(max_length=200)
     oid = models.IntegerField()
+    image = models.TextField(max_length=200,default='topicImage')
     def __str__(self):
         s = self.title +" | "+ self.cid.title + " | " + str(self.oid)
         return s
