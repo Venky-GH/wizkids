@@ -223,6 +223,10 @@
             <textarea rows="10" cols="6" name="cdesc" class="form-control" aria-describedby="emailHelp"
               placeholder="Enter Course Description"></textarea>
           </div>
+          <div class="form-group">
+              <label>Image</label>
+              <input type="file" name="thmb" class="form-control " id="imageUser" placeholder="Enter">
+          </div>
           {% if chk == 1 %}
 
             <input hidden="true" type="number" name="orderid" value="{{ ordLen }}" >

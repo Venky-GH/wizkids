@@ -5,6 +5,9 @@ from django.contrib import auth
 from accounts.models import account
 
 
+def access_denied(request):
+	return render(request, 'access_denied_403.html')
+
 def home(request):
 	feeds = feedback.objects
 	d = {}
@@ -18,4 +21,7 @@ def home(request):
 			i+=1
 
 	print(d)
-	return render(request, 'home.html', {'d' : d})
+	curruser = None
+	if request.user.id:
+		curruser = request.user.id
+	return render(request, 'home.html', {'d' : d, 'currentUser' : curruser})

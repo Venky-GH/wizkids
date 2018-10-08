@@ -24,5 +24,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('accounts/', include('accounts.urls')),
     path('course/', include('feedbacks.urls')),
-    path('creator/',include('creator.urls'))
+    path('creator/',include('creator.urls')),
+    path('accd/',views.access_denied, name='accd')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
