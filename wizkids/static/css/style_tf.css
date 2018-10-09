@@ -11,7 +11,7 @@
   will-change: width, left, z-index, height;
   position: absolute;
   width: 40%;
-  min-height: 70vh;
+  min-height: 100vh;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
