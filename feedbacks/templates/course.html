@@ -90,7 +90,7 @@
     </div> -->
 
     <section class="strips">
-        <article class="strips__strip">
+        <article onclick="topFunction()" class="strips__strip">
           <div class="strip__content">
             <h1 class="strip__title" data-name="Lorem">Awesome</h1>
             <div class="strip__inner-text">
@@ -103,7 +103,7 @@
             
           </div>
         </article>
-        <article class="strips__strip">
+        <article onclick="topFunction()" class="strips__strip">
           <div class="strip__content">
             <h1 class="strip__title" data-name="Ipsum">Words</h1>
             <div class="strip__inner-text">
@@ -199,6 +199,13 @@
   crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
   crossorigin="anonymous"></script>
+
+<script>
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+</script>
 
 
 {% if Response %}
