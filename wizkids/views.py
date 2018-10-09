@@ -25,3 +25,6 @@ def home(request):
 	if request.user.id:
 		curruser = request.user.id
 	return render(request, 'home.html', {'d' : d, 'currentUser' : curruser})
+
+def show_test(request):
+	return render(request, 'index.html')

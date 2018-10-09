@@ -63,7 +63,7 @@
   <div class="container">
 
 
-    <div class="row">
+    <!-- <div class="row">
         {% for k in keys.all %}
       <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
         <div class="post-entry mb-5">
@@ -87,7 +87,37 @@
         </div>
       </div>
       {% endfor %}
-    </div>
+    </div> -->
+
+    <section class="strips">
+        <article class="strips__strip">
+          <div class="strip__content">
+            <h1 class="strip__title" data-name="Lorem">Awesome</h1>
+            <div class="strip__inner-text">
+              <h2>Ettrics</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia sapiente deserunt consectetur, quod reiciendis corrupti quo ea aliquid! Repellendus numquam quo, voluptate. Suscipit soluta omnis quibusdam facilis, illo voluptates odit!</p>
+              <p>
+                <a href="https://twitter.com/ettrics" target="_blank"><i class="fa fa-twitter"></i></a>
+              </p>
+            </div>
+            
+          </div>
+        </article>
+        <article class="strips__strip">
+          <div class="strip__content">
+            <h1 class="strip__title" data-name="Ipsum">Words</h1>
+            <div class="strip__inner-text">
+              <h2>Ettrics</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia sapiente deserunt consectetur, quod reiciendis corrupti quo ea aliquid! Repellendus numquam quo, voluptate. Suscipit soluta omnis quibusdam facilis, illo voluptates odit!</p>
+              <p>
+                <a href="https://twitter.com/ettrics" target="_blank"><i class="fa fa-twitter"></i></a>
+              </p>
+            </div>
+          </div>
+        </article>
+      
+        <i class="fa fa-close strip__close"></i>
+      </section>
 
     {% if user.is_authenticated %}
     {% for key, value in chk.items %}
