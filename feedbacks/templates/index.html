@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+	{% load staticfiles %}
+	{% load mytemplate %}
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Courses</title>
+	<meta name="description" content="Blueprint: A basic template for a responsive multi-level menu" />
+	<meta name="keywords" content="blueprint, template, html, css, menu, responsive, mobile-friendly" />
+	<meta name="author" content="Codrops" />
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Gaegu:300" rel="stylesheet">
+	<link rel="shortcut icon" href="{% static 'images/icon2.png' %}">
+	<!-- food icons -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/organicfoodicons.css' %}" />
+	<!-- demo styles -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/demo.css' %}" />
+	<!-- menu styles -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/component.css' %}" />
+	<script src="{% static 'js/modernizr-custom.js' %}"></script>
+</head>
+
+<body>
+	<!-- Main container -->
+	<div class="container">
+		<!-- Blueprint header -->
+		<header class="bp-header cf">
+			<div class="dummy-logo">
+				<div>
+					<img src="/static/images/icon2.png" height="20%" width="20%" />
+				</div>
+				<h2 class="dummy-heading">WizKids</h2>
+			</div>
+			<div class="bp-header__main">
+				<h1 class="bp-header__title">Multi-Level Menu</h1>
+				<nav class="bp-nav">
+					<a class="bp-nav__item bp-icon bp-icon--prev" href="http://tympanus.net/Blueprints/PageStackNavigation/" data-info="previous Blueprint"><span>Previous Blueprint</span></a>
+					<!--a class="bp-nav__item bp-icon bp-icon--next" href="" data-info="next Blueprint"><span>Next Blueprint</span></a-->
+					<a class="bp-nav__item bp-icon bp-icon--drop" href="http://tympanus.net/codrops/?p=25521" data-info="back to the Codrops article"><span>back to the Codrops article</span></a>
+					<a class="bp-nav__item bp-icon bp-icon--archive" href="http://tympanus.net/codrops/category/blueprints/" data-info="Blueprints archive"><span>Go to the archive</span></a>
+				</nav>
+			</div>
+		</header>
+		<button class="action action--open" aria-label="Open Menu"><span class="icon icon--menu"></span></button>
+		
+		<nav id="ml-menu" class="menu">
+			<button class="action action--close" aria-label="Close Menu"><span class="icon icon--cross"></span></button>
+			<hr>
+			<div class="menu__wrap">
+				<ul data-menu="main" class="menu__level" tabindex="-1" role="menu" aria-label="All">
+					{% for obj in crs.all %}
+					<li class="menu__item" role="menuitem">
+						<a class="menu__link" data-submenu="submenu-{{ obj.ids }}" aria-owns="submenu-1" href="#">
+							{{ obj.title }}
+						</a>
+					</li>
+					{% endfor %}
+				</ul>
+				<!-- Submenu 1 -->
+				{% for c in crs.all %}
+				<ul data-menu="submenu-{{ c.ids }}" id="submenu-1" class="menu__level" tabindex="-1" role="menu" aria-label="Vegetables">
+					{% for t in c.ids|my_filter:5 %}
+					<li class="menu__item" role="menuitem">
+						<a class="menu__link" href="#" onclick="settopic('{{ t.ids }}')">
+							{{ t.title }}
+						</a>
+						<span id="{{ t.ids }}">{{ t.ids }}</span>
+					</li>
+					<script>
+						var ct;
+						function settopic(td) {
+						ct = document.getElementById(td).innerHTML;
+						}
+					</script>
+					{% endfor %}
+				</ul>
+				{% endfor %}
+				
+			</div>
+		</nav>
+		<div class="content">
+			<p class="info">Choose a Course to Continue</p>
+			<!-- Ajax loaded content here -->
+		
+		</div>
+	</div>
+	<!-- /view -->
+	<script src="{% static 'js/classie.js' %}"></script>
+	<script src="{% static 'js/dummydata.js' %}"></script>
+	<script src="{% static 'js/main-1.js' %}"></script>
+	<script>
+		
+	(function() {
+		var menuEl = document.getElementById('ml-menu'),
+			mlmenu = new MLMenu(menuEl, {
+				// breadcrumbsCtrl : true, // show breadcrumbs
+				// initialBreadcrumb : 'all', // initial breadcrumb text
+				backCtrl : false, // show back button
+				// itemsDelayInterval : 60, // delay between each menu item sliding animation
+				onItemClick: loadDummyData // callback: item that doesn´t have a submenu gets clicked - onItemClick([event], [inner HTML of the clicked item])
+			});
+
+		// mobile menu toggle
+		var openMenuCtrl = document.querySelector('.action--open'),
+			closeMenuCtrl = document.querySelector('.action--close');
+
+		openMenuCtrl.addEventListener('click', openMenu);
+		closeMenuCtrl.addEventListener('click', closeMenu);
+
+		function openMenu() {
+			classie.add(menuEl, 'menu--open');
+			closeMenuCtrl.focus();
+		}
+
+		function closeMenu() {
+			classie.remove(menuEl, 'menu--open');
+			openMenuCtrl.focus();
+		}
+
+		// simulate grid content loading
+		var gridWrapper = document.querySelector('.content');
+
+		function loadDummyData(ev, itemName) {
+			ev.preventDefault();
+
+			closeMenu();
+			gridWrapper.innerHTML = '';
+			var v = '';
+		//	console.log(ct);
+			{% with topid=ct %}
+			console.log("{{ topid }}");
+			{% endwith %}
+		//	console.log('hhh');
+			
+			
+			classie.add(gridWrapper, 'content--loading');
+			setTimeout(function() {
+				classie.remove(gridWrapper, 'content--loading');
+				gridWrapper.innerHTML = '';
+			}, 700);
+		}
+	})();
+	</script>
+</body>
+
+</html>
