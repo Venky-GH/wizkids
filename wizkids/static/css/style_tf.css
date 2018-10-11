@@ -1,3 +1,12 @@
+#backImage{
+  background-position-x: 50%;
+  -webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: filled;	
+}
+
+
 * {
   box-sizing: border-box;
 }
@@ -23,45 +32,38 @@
   left: 50vw;
 }
 .strips__strip:nth-child(1) .strip__content {
-  background: #244f75;
+  background: #BFC2AA;
   transform: translate3d(-100%, 0, 0);
   animation-name: strip1;
   animation-delay: 0.1s;
+  opacity: 0.2;
 }
+/* .strips__strip:nth-child(1) .strip__content:hover {
+  opacity: 0.7;
+} */
+
 .strips__strip:nth-child(2) .strip__content {
-  background: #60bfbf;
+  background: #991955;
   transform: translate3d(0, 100%, 0);
   animation-name: strip2;
   animation-delay: 0.2s;
+  opacity: 0.2;
 }
+/* .strips__strip:nth-child(2) .strip__content:hover {
+  opacity: 0.7;
+} */
+
 @media screen and (max-width: 760px) {
   .strips__strip {
-    min-height: 20vh;
+    min-height: 100%;
   }
   .strips__strip:nth-child(1) {
-    top: 0;
-    left: 0;
-    width: 100%;
+    left: 10%;
+    
   }
   .strips__strip:nth-child(2) {
-    top: 20vh;
-    left: 0;
-    width: 100%;
-  }
-  .strips__strip:nth-child(3) {
-    top: 40vh;
-    left: 0;
-    width: 100%;
-  }
-  .strips__strip:nth-child(4) {
-    top: 60vh;
-    left: 0;
-    width: 100%;
-  }
-  .strips__strip:nth-child(5) {
-    top: 80vh;
-    left: 0;
-    width: 100%;
+    left: 50%;
+    
   }
 }
 .strips .strip__content {
@@ -113,10 +115,12 @@
   left: 0 !important;
   z-index: 3;
   cursor: default;
+
 }
 @media screen and (max-width: 760px) {
   .strips__strip--expanded {
     min-height: 100vh;
+    opacity: 1;
   }
 }
 .strips__strip--expanded .strip__content:hover:before {
@@ -124,7 +128,7 @@
   opacity: 0.05;
 }
 .strips__strip--expanded .strip__title {
-  opacity: 0;
+  opacity: 1;
 }
 .strips__strip--expanded .strip__inner-text {
   opacity: 1;
@@ -174,30 +178,7 @@
     transform: translate3d(0, 0, 0);
   }
 }
-@keyframes strip3 {
-  0% {
-    transform: translate3d(0, -100%, 0);
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-}
-@keyframes strip4 {
-  0% {
-    transform: translate3d(0, 100%, 0);
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-}
-@keyframes strip5 {
-  0% {
-    transform: translate3d(100%, 0, 0);
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-}
+
 /* Demo purposes */
 body {
   font-family: 'Lato';
@@ -219,3 +200,4 @@ h2 {
 p {
   margin: 0 0 16px;
 }
+

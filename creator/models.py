@@ -7,7 +7,7 @@ class course (models.Model):
     desc = models.TextField(max_length=200)
     image = models.TextField(max_length=200,default='courseImage')
     def __str__(self):
-        return self.title
+        return self.title + " | " + "courseId: "+str(self.ids)
     # code = models.CharField(max_length=2)
     # res = models.FileField(upload_to='media/')
 
@@ -19,7 +19,7 @@ class topic (models.Model):
     oid = models.IntegerField()
     image = models.TextField(max_length=200,default='topicImage')
     def __str__(self):
-        s = self.title +" | "+ self.cid.title + " | " + str(self.oid)
+        s = self.title +" | "+ self.cid.title + " | " + str(self.oid) + " | " + "topicId: " + str(self.ids)
         return s
 
 class content (models.Model):

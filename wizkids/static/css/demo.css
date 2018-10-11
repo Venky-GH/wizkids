@@ -55,11 +55,11 @@ a:hover {
 .container {
 	overflow-y: auto;
 	height: 100vh;
-	background: url("/static/images/bg_1.jpg");
+	background: url("/static/images/bg_1_1.jpg");
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-	background-size: cover;
+	background-size: cover;	
 }
 
 
