@@ -2,7 +2,11 @@ from django.shortcuts import render
 from feedbacks.models import feedback
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.http import HttpResponse
 from accounts.models import account
+from creator.models import course, topic
+from django.http.request import QueryDict
+# from django.contrib.admin.decorators import register
 
 
 def access_denied(request):
@@ -26,5 +30,12 @@ def home(request):
 		curruser = request.user.id
 	return render(request, 'home.html', {'d' : d, 'currentUser' : curruser})
 
-def show_test(request):
-	return render(request, 'index.html')
+def show_course(request):
+	crs = course.objects
+	return render(request, 'index.html', {'crs':crs})
+
+def set_val(request):
+	if request.method == "GET":
+		task_title = QueryDict(request.body).get('topic_id')
+		print("Hey there! I am Ajax!")
+		return HttpResponse("Success!")

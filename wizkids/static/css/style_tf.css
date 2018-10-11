@@ -14,8 +14,9 @@
   min-height: 100vh;
   text-align: center;
   overflow: hidden;
-  color: white;
+  color: #ffffff;
 }
+
 .strips__strip {
   will-change: width, left, z-index, height;
   position: absolute;
