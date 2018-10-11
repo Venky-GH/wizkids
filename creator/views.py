@@ -97,7 +97,7 @@ def recurrRes(i,s,naam):
     obj.oid = i + 1
     i = i + 1
     print(s[i-1], i)
-    recurr(i,s,naam)
+    recurrRes(i,s,naam)
     obj.save()
 
 
