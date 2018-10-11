@@ -13,6 +13,7 @@
 	<meta name="author" content="Codrops" />
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Gaegu:300" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="shortcut icon" href="{% static 'images/icon2.png' %}">
 	<!-- food icons -->
 	<link rel="stylesheet" type="text/css" href="{% static 'css/organicfoodicons.css' %}" />
@@ -20,10 +21,12 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/demo.css' %}" />
 	<!-- menu styles -->
 	<link rel="stylesheet" type="text/css" href="{% static 'css/component.css' %}" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="{% static 'js/modernizr-custom.js' %}"></script>
 </head>
 
 <body>
+	<!-- <img id="img" src="/static/images/wswsws.jpg" alt="" srcset=""> -->
 	<!-- Main container -->
 	<div class="container">
 		<!-- Blueprint header -->
@@ -67,13 +70,64 @@
 						<a class="menu__link" href="#" onclick="settopic('{{ t.ids }}')">
 							{{ t.title }}
 						</a>
-						<span id="{{ t.ids }}">{{ t.ids }}</span>
+						
+						<div hidden="true" id="{{t.ids}}">
+							{% for p in t.ids|filter_content:5 %}
+							<div class="accordion" id="accordionExample">
+									<div class="card" style="border-radius:8px">
+									  <div class="card-header" id="headingOne">
+										<h5 class="mb-0">
+											
+										  <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#{{p.code}}{{p.conid}}" aria-expanded="true" aria-controls="collapseOne">
+											{{ p.code }} &nbsp; {{ p.conid }}
+										  </button>
+										</h5>
+									  </div>
+								  
+									  <div id="{{p.code}}{{p.conid}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+										<div class="card-body" id="{{p.code}}{{p.conid}}{{p.code}}">
+												<script type="text/javascript">
+													var init = {{ p.data|safe }};
+													var final = JSON.stringify(init);
+													var myjson = JSON.parse(final);
+													if(myjson.code == "Q" || myjson.code == "T")
+													{
+													  document.getElementById('{{p.code}}{{p.conid}}{{p.code}}').innerHTML = `${myjson.content.question} <br> ${myjson.content.answer}`;
+													}
+													else if(myjson.code == "V" || myjson.code == "P")
+													{
+													  if(myjson.code == "V")
+													  {
+														document.getElementById('{{p.code}}{{p.conid}}{{p.code}}').innerHTML =`<div class="text-center"><video controls preload="none" width="80%" height="75%" src="${myjson.url}" ></video></div>`
+													  }
+													  else if(myjson.code == "P")
+													  {
+														document.getElementById('{{p.code}}{{p.conid}}{{p.code}}').innerHTML = `<div class="text-center"><img src="${myjson.url}" width="70%" height="50%" alt="some image" ></div>`
+													  }
+													}
+													else if(myjson.code == "M"){
+													  document.getElementById('{{p.code}}{{p.conid}}{{p.code}}').innerHTML = `${myjson.ques} `;
+													}
+												  </script>
+										</div>
+									  </div>
+									</div>
+									
+								  </div>
+								  <br>
+							{% endfor %}
+						</div>
 					</li>
 					<script>
 						var ct;
+						var v;
 						function settopic(td) {
-						ct = document.getElementById(td).innerHTML;
+						ct = td;
+						v = ``;
+						v += document.getElementById(String(ct)).innerHTML;
+						
 						}
+						
 					</script>
 					{% endfor %}
 				</ul>
@@ -91,6 +145,9 @@
 	<script src="{% static 'js/classie.js' %}"></script>
 	<script src="{% static 'js/dummydata.js' %}"></script>
 	<script src="{% static 'js/main-1.js' %}"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	<script>
 		
 	(function() {
@@ -128,18 +185,13 @@
 
 			closeMenu();
 			gridWrapper.innerHTML = '';
-			var v = '';
-		//	console.log(ct);
-			{% with topid=ct %}
-			console.log("{{ topid }}");
-			{% endwith %}
-		//	console.log('hhh');
 			
+			//console.log("{{ task_title }}");
 			
 			classie.add(gridWrapper, 'content--loading');
 			setTimeout(function() {
 				classie.remove(gridWrapper, 'content--loading');
-				gridWrapper.innerHTML = '';
+				gridWrapper.innerHTML = v;
 			}, 700);
 		}
 	})();

@@ -51,17 +51,24 @@ a {
 a:hover {
 	color: #ddd;
 }
+/* #img{
+	
+} */
 
-.container {
+
+body {
 	overflow-y: auto;
-	height: 100vh;
-	background: url("/static/images/bg_1.jpg");
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
+	background: url("/static/images/wswsws.jpg");
+
 	background-size: cover;
+	background-color: #70747A;
 }
 
+.container {
+	/* overflow-y: auto; */
+	height: 100vh;
+	
+}
 
 /* Blueprint header */
 

@@ -26,5 +26,7 @@ urlpatterns = [
     path('course/', include('feedbacks.urls')),
     path('creator/',include('creator.urls')),
     path('accd/',views.access_denied, name='accd'),
+    path('listcourse/setvalue/',views.set_val, name='setvalue'),
     path('listcourse/',views.show_course, name='listc')
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
