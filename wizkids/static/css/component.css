@@ -33,6 +33,9 @@
 	content: '\e117';
 }
 
+.bp-nav__item bp-icon bp-icon--prev{
+	color: rgb(40, 167, 69);
+}
 
 /* Menu styles */
 

@@ -38,12 +38,12 @@
 				<h2 class="dummy-heading">WizKids</h2>
 			</div>
 			<div class="bp-header__main">
-				<h1 class="bp-header__title">Multi-Level Menu</h1>
+				<h1 class="bp-header__title">Course Content</h1>
 				<nav class="bp-nav">
-					<a class="bp-nav__item bp-icon bp-icon--prev" href="http://tympanus.net/Blueprints/PageStackNavigation/" data-info="previous Blueprint"><span>Previous Blueprint</span></a>
-					<!--a class="bp-nav__item bp-icon bp-icon--next" href="" data-info="next Blueprint"><span>Next Blueprint</span></a-->
+					<a class="bp-nav__item bp-icon bp-icon--prev" href="{% url 'course' %}" data-info="Back to Course Page"><span>Back to Course Page</span></a>
+					<!-- <a class="bp-nav__item bp-icon bp-icon--next" href="" data-info="next Blueprint"><span>Next Blueprint</span></a>
 					<a class="bp-nav__item bp-icon bp-icon--drop" href="http://tympanus.net/codrops/?p=25521" data-info="back to the Codrops article"><span>back to the Codrops article</span></a>
-					<a class="bp-nav__item bp-icon bp-icon--archive" href="http://tympanus.net/codrops/category/blueprints/" data-info="Blueprints archive"><span>Go to the archive</span></a>
+					<a class="bp-nav__item bp-icon bp-icon--archive" href="http://tympanus.net/codrops/category/blueprints/" data-info="Blueprints archive"><span>Go to the archive</span></a> -->
 				</nav>
 			</div>
 		</header>
@@ -78,14 +78,14 @@
 									  <div class="card-header" id="headingOne">
 										<h5 class="mb-0">
 											
-										  <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#{{p.code}}{{p.conid}}" aria-expanded="true" aria-controls="collapseOne">
-											{{ p.code }} &nbsp; {{ p.conid }}
+										  <button id="" class="btn btn-success" type="button" data-toggle="collapse" data-target="#{{p.code}}{{p.conid}}" aria-expanded="true" aria-controls="collapseOne">
+											{{ p.code }} &nbsp; Show Content
 										  </button>
 										</h5>
 									  </div>
 								  
 									  <div id="{{p.code}}{{p.conid}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-										<div class="card-body" id="{{p.code}}{{p.conid}}{{p.code}}">
+										<div class="card-body" id="{{p.code}}{{p.conid}}{{p.code}}" style="color:black;">
 												<script type="text/javascript">
 													var init = {{ p.data|safe }};
 													var final = JSON.stringify(init);

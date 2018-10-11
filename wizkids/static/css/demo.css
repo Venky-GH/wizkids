@@ -103,7 +103,7 @@ body {
 	text-indent: 3px;
 	letter-spacing: 3px;
 	text-transform: uppercase;
-	color: #5c5edc;
+	color:rgb(40,167,69);
 }
 
 .bp-tooltip:after {
@@ -130,7 +130,7 @@ body {
 	letter-spacing: 0;
 	text-transform: none;
 	color: #fff;
-	background: #5c5edc;
+	background:rgb(40,167,69);
 }
 
 .bp-nav {
@@ -166,7 +166,7 @@ body {
 }
 
 .bp-nav__item:hover {
-	background: #5c5edc;
+	background:rgb(40,167,69);
 }
 
 .bp-icon:after {
@@ -176,7 +176,7 @@ body {
 	font-variant: normal;
 	text-align: center;
 	text-transform: none;
-	color: #5c5edc;
+	color: rgb(40,167,69);
 	-webkit-font-smoothing: antialiased;
 	speak: none;
 }
